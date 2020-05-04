@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=2]
+[gd_scene load_steps=78 format=2]
 
 [ext_resource path="res://sprites/hyenakid/spritesheet0.png" type="Texture" id=1]
 [ext_resource path="res://tilesets/spritesheet0.png" type="Texture" id=2]
@@ -10,6 +10,10 @@
 [ext_resource path="res://tilesets/stairs.png" type="Texture" id=8]
 [ext_resource path="res://Oswald-VariableFont_wght.ttf" type="DynamicFontData" id=9]
 [ext_resource path="res://sprites/misc/snow.png" type="Texture" id=10]
+[ext_resource path="res://player0.gd" type="Script" id=11]
+[ext_resource path="res://sprites/misc/radial.png" type="Texture" id=12]
+[ext_resource path="res://sprites/misc/transport.png" type="Texture" id=13]
+[ext_resource path="res://tilesets/ceiling.png" type="Texture" id=14]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -80,6 +84,9 @@ points = PoolVector2Array( 16, 16, 0, 16, 0, 14, 16, 14 )
 
 [sub_resource type="ConvexPolygonShape2D" id=19]
 points = PoolVector2Array( 16, 1, 0, 1, 0, 0, 16, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=59]
+points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=20]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
@@ -225,6 +232,12 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 "one_way_margin": 1.0,
 "shape": SubResource( 19 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 1, 3 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 59 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 0/z_index = 0
 1/name = "windowshade.png 1"
@@ -343,7 +356,7 @@ func _process(delta):
 	modulate.a = lerp(modulate.a, 1 - rand_range(1,50)/100, delta*2)
 "
 
-[sub_resource type="Shader" id=55]
+[sub_resource type="Shader" id=37]
 code = "shader_type canvas_item;
 uniform sampler2D gradient;
 
@@ -351,99 +364,114 @@ void fragment() {
 	COLOR = texture(gradient, UV+sin(TIME)) * texture(TEXTURE, UV);
 }"
 
-[sub_resource type="Gradient" id=57]
+[sub_resource type="Gradient" id=38]
 offsets = PoolRealArray( 0, 0.532609, 1 )
 colors = PoolColorArray( 0.0466919, 0.128281, 0.996094, 1, 0.453125, 0, 1, 1, 1, 0.632812, 0, 1 )
 
-[sub_resource type="GradientTexture" id=58]
-gradient = SubResource( 57 )
+[sub_resource type="GradientTexture" id=39]
+gradient = SubResource( 38 )
 
-[sub_resource type="ShaderMaterial" id=56]
-shader = SubResource( 55 )
-shader_param/gradient = SubResource( 58 )
+[sub_resource type="ShaderMaterial" id=40]
+shader = SubResource( 37 )
+shader_param/gradient = SubResource( 39 )
 
-[sub_resource type="DynamicFont" id=54]
+[sub_resource type="DynamicFont" id=41]
 size = 80
 use_filter = true
+extra_spacing_top = -7
+extra_spacing_bottom = -7
 font_data = ExtResource( 9 )
 
-[sub_resource type="GDScript" id=37]
-script/source = "extends KinematicBody2D
-var velocity = Vector2()
-var maxvel = Vector2(250, 250)
-var moving = false
+[sub_resource type="GDScript" id=62]
+script/source = "extends Area2D
+var objects = Array()
 
+var t = 0
 func _process(delta):
-	moving = false
-	if Input.is_action_pressed(\"ui_left\"):
-		velocity.x = -maxvel.x
-		$sprite.scale.x = -2
-		moving = true
-	elif Input.is_action_pressed(\"ui_right\"):
-		velocity.x = maxvel.x
-		$sprite.scale.x = 2
-		moving = true
-	else:
-		velocity.x = lerp(velocity.x, 0, 10 * delta)
-		
-	if Input.is_action_pressed(\"ui_up\"):
-		velocity.y = -maxvel.y
-		moving = true
-	elif Input.is_action_pressed(\"ui_down\"):
-		velocity.y = maxvel.y
-		moving = true
-	else:
-		velocity.y = lerp(velocity.y, 0, 10 * delta)
-		
-	if moving: 
-		$sprite.play(\"moving\")
-	else:
-		$sprite.play(\"still\")
-		
-	move_and_slide(velocity)
+	t = t + delta
+	if t>1:
+		t = t - 1
+	$transport.get_material().set_shader_param(\"move\", t)
+	
+	for x in objects:
+		if x.get(\"velocity\"):
+			x.velocity.x = x.velocity.x + 40
 
+func _on_mover_body_entered(body):
+	objects.append(body)
 
+func _on_mover_body_exited(body):
+	objects.erase(body)
 "
 
-[sub_resource type="AtlasTexture" id=38]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 32, 32 )
+[sub_resource type="Shader" id=60]
+code = "shader_type canvas_item;
+uniform float rot = 1.570;
+uniform float move = 0;
 
-[sub_resource type="AtlasTexture" id=39]
+vec2 rotateUV(vec2 uv, vec2 pivot, float rotation) {
+    float sine = sin(rotation);
+    float cosine = cos(rotation);
+
+    uv -= pivot;
+    uv.x = uv.x * cosine - uv.y * sine;
+    uv.y = uv.x * sine + uv.y * cosine;
+    uv += pivot;
+
+    return uv;
+}
+
+void fragment() {
+    COLOR = texture(TEXTURE, rotateUV(UV, vec2(0.5), rot)+move);
+}"
+
+[sub_resource type="ShaderMaterial" id=61]
+shader = SubResource( 60 )
+shader_param/rot = 1.57
+shader_param/move = 0.0
+
+[sub_resource type="RectangleShape2D" id=63]
+extents = Vector2( 48, 21.75 )
+
+[sub_resource type="AtlasTexture" id=42]
 atlas = ExtResource( 1 )
 region = Rect2( 32, 0, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=40]
+[sub_resource type="AtlasTexture" id=43]
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 32, 32 )
 
-[sub_resource type="SpriteFrames" id=42]
+[sub_resource type="AtlasTexture" id=44]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=45]
 animations = [ {
-"frames": [ SubResource( 38 ) ],
-"loop": true,
-"name": "still",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 39 ), SubResource( 40 ) ],
+"frames": [ SubResource( 42 ), SubResource( 43 ) ],
 "loop": true,
 "name": "moving",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 44 ) ],
+"loop": true,
+"name": "still",
+"speed": 5.0
 } ]
 
-[sub_resource type="Shader" id=43]
+[sub_resource type="Shader" id=46]
 code = "shader_type canvas_item;
 
 void fragment() {
 	COLOR = texture(TEXTURE, UV, 2.);
 }"
 
-[sub_resource type="ShaderMaterial" id=44]
-shader = SubResource( 43 )
+[sub_resource type="ShaderMaterial" id=47]
+shader = SubResource( 46 )
 
-[sub_resource type="RectangleShape2D" id=45]
+[sub_resource type="RectangleShape2D" id=48]
 extents = Vector2( 10, 2.06219 )
 
-[sub_resource type="Shader" id=46]
+[sub_resource type="Shader" id=49]
 code = "shader_type canvas_item;
 uniform float time_amp = 1;
 uniform float scale = 1;
@@ -462,8 +490,8 @@ void fragment() {
 	COLOR = texture(tex, modUV+sinedistort+scanlinedistort)*color;
 }"
 
-[sub_resource type="ShaderMaterial" id=47]
-shader = SubResource( 46 )
+[sub_resource type="ShaderMaterial" id=50]
+shader = SubResource( 49 )
 shader_param/time_amp = 1.335
 shader_param/scale = 0.143
 shader_param/freq = 2.184
@@ -474,13 +502,36 @@ shader_param/sl_amp = 0.0
 shader_param/color = Color( 1, 1, 1, 0.964706 )
 shader_param/tex = ExtResource( 6 )
 
-[sub_resource type="GDScript" id=48]
+[sub_resource type="GDScript" id=51]
 script/source = "extends ColorRect
 func _ready():
 	pass # Replace with function body.
 "
 
-[sub_resource type="GDScript" id=49]
+[sub_resource type="Shader" id=57]
+code = "shader_type canvas_item;
+uniform vec2 red_Distort;
+uniform vec2 green_Distort;
+uniform vec2 blue_Distort;
+
+uniform sampler2D grad;
+
+void fragment() {
+	float power = texture(grad, UV).r;
+	
+	COLOR.r =+ texture(SCREEN_TEXTURE, SCREEN_UV+(red_Distort*power)).r;
+	COLOR.g =+ texture(SCREEN_TEXTURE, SCREEN_UV+(green_Distort*power)).g;
+	COLOR.b =+ texture(SCREEN_TEXTURE, SCREEN_UV+(blue_Distort*power)).b;
+}"
+
+[sub_resource type="ShaderMaterial" id=58]
+shader = SubResource( 57 )
+shader_param/red_Distort = Vector2( 0.004, 0 )
+shader_param/green_Distort = null
+shader_param/blue_Distort = Vector2( 0, 0 )
+shader_param/grad = ExtResource( 12 )
+
+[sub_resource type="GDScript" id=52]
 script/source = "extends StaticBody2D
 var player_on = false
 var t = 1
@@ -495,7 +546,7 @@ func _process(delta):
 	else:
 		$dialog.rect_scale.x = cerp($dialog.rect_scale.x, 0, 13*delta)
 		
-	$dialog.visible = ($dialog.rect_scale.x>0.05)
+	$dialog.visible = ($dialog.rect_scale.x>0.02)
 
 
 func _on_detector_body_entered(body):
@@ -507,19 +558,19 @@ func _on_detector_body_exited(body):
 		player_on = false
 "
 
-[sub_resource type="RectangleShape2D" id=50]
+[sub_resource type="RectangleShape2D" id=53]
 extents = Vector2( 8, 10 )
 
-[sub_resource type="RectangleShape2D" id=51]
+[sub_resource type="RectangleShape2D" id=54]
 extents = Vector2( 144, 44 )
 
-[sub_resource type="DynamicFont" id=52]
+[sub_resource type="DynamicFont" id=55]
 size = 33
 use_filter = true
 extra_spacing_top = -8
 font_data = ExtResource( 9 )
 
-[sub_resource type="Environment" id=53]
+[sub_resource type="Environment" id=56]
 background_mode = 4
 background_energy = 1.23
 background_canvas_max_layer = 1
@@ -545,7 +596,7 @@ scale = Vector2( 4, 4 )
 tile_set = SubResource( 31 )
 cell_size = Vector2( 16, 16 )
 format = 1
-tile_data = PoolIntArray( -851955, 0, 0, -851954, 0, 1, -851953, 0, 1, -851952, 0, 1, -851951, 0, 1, -851950, 0, 1, -851949, 0, 1, -851948, 0, 1, -851947, 0, 2, -786419, 0, 65536, -786418, 0, 65537, -786417, 0, 65537, -786416, 0, 65537, -786415, 0, 65537, -786414, 0, 65537, -786413, 0, 65537, -786412, 0, 65537, -786411, 0, 65538, -720891, 0, 0, -720890, 0, 1, -720889, 0, 1, -720888, 0, 1, -720887, 0, 1, -720886, 0, 1, -720885, 0, 1, -720884, 0, 1, -720883, 0, 196610, -720882, 0, 65537, -720881, 0, 65537, -720880, 0, 131075, -720879, 0, 131073, -720878, 0, 131073, -720877, 0, 131073, -720876, 0, 131073, -720875, 0, 131074, -655355, 0, 65536, -655354, 0, 65537, -655353, 0, 65537, -655352, 0, 65537, -655351, 0, 65537, -655350, 0, 65537, -655349, 0, 65537, -655348, 0, 65537, -655347, 0, 65537, -655346, 0, 65537, -655345, 0, 65537, -655344, 0, 65538, -655343, 1, 196609, -655342, 1, 196609, -655341, 1, 196609, -655340, 1, 196609, -655339, 1, 196610, -589819, 0, 65536, -589818, 0, 65537, -589817, 0, 131072, -589816, 0, 131073, -589815, 0, 131073, -589814, 0, 131073, -589813, 0, 131073, -589812, 0, 131073, -589811, 0, 131073, -589810, 0, 131073, -589809, 0, 131073, -589808, 0, 131074, -589807, 1, 65536, -589806, 1, 65537, -589805, 1, 196609, -589804, 1, 196609, -589803, 1, 196610, -524283, 0, 65536, -524282, 0, 65537, -524281, 1, 196608, -524280, 1, 196609, -524279, 1, 196609, -524278, 1, 196609, -524277, 1, 196609, -524276, 1, 196609, -524275, 1, 196609, -524274, 1, 196609, -524273, 1, 196609, -524272, 1, 196610, -524271, 1, 65536, -524270, 1, 65537, -524269, 1, 65538, -524268, 1, 65539, -524267, 1, 196610, -458747, 0, 65536, -458746, 0, 65537, -458745, 1, 196608, -458744, 1, 65536, -458743, 1, 65537, -458742, 1, 196609, -458741, 1, 65536, -458740, 1, 65537, -458739, 1, 196609, -458738, 1, 65538, -458737, 1, 65539, -458736, 1, 196610, -458735, 1, 1, -458734, 1, 1, -458733, 1, 131074, -458732, 1, 131075, -458731, 1, 2, -393211, 0, 65536, -393210, 0, 65537, -393209, 1, 0, -393208, 1, 1, -393207, 1, 1, -393206, 1, 1, -393205, 1, 1, -393204, 1, 1, -393203, 1, 1, -393202, 1, 131074, -393201, 1, 131075, -393200, 1, 2, -393199, 0, 65537, -393198, 0, 65537, -393197, 0, 65537, -393196, 0, 65537, -393195, 0, 65538, -327675, 0, 65536, -327674, 0, 65537, -327673, 0, 65537, -327672, 0, 65537, -327671, 0, 65537, -327670, 0, 65537, -327669, 0, 65537, -327668, 0, 65537, -327667, 0, 65537, -327666, 0, 65537, -327665, 0, 65537, -327664, 0, 65537, -327663, 0, 65537, -327662, 0, 65537, -327661, 0, 65537, -327660, 0, 65537, -327659, 0, 65538, -262139, 0, 131072, -262138, 0, 131073, -262137, 0, 131073, -262136, 0, 131073, -262135, 0, 131073, -262134, 0, 131073, -262133, 0, 131073, -262132, 0, 131073, -262131, 0, 131073, -262130, 0, 131073, -262129, 0, 131073, -262128, 0, 131073, -262127, 0, 131073, -262126, 0, 131073, -262125, 0, 131073, -262124, 0, 65539, -262123, 0, 65538, -196603, 1, 196608, -196602, 1, 196609, -196601, 1, 196609, -196600, 1, 196609, -196599, 1, 196609, -196598, 1, 196609, -196597, 1, 196609, -196596, 1, 196609, -196595, 1, 196609, -196594, 1, 196609, -196593, 1, 196609, -196592, 1, 196609, -196591, 1, 196609, -196590, 1, 196609, -196589, 1, 196609, -196588, 0, 65536, -196587, 0, 65538, -131067, 1, 196608, -131066, 1, 196609, -131065, 1, 196609, -131064, 1, 65536, -131063, 1, 65537, -131062, 1, 196609, -131061, 1, 65536, -131060, 1, 65537, -131059, 1, 196609, -131058, 1, 65536, -131057, 1, 65537, -131056, 1, 196609, -131055, 1, 65536, -131054, 1, 65537, -131053, 1, 196609, -131052, 0, 65536, -131051, 0, 65538, -65531, 1, 0, -65530, 1, 1, -65529, 1, 1, -65528, 1, 1, -65527, 1, 1, -65526, 1, 1, -65525, 1, 1, -65524, 1, 1, -65523, 1, 1, -65522, 1, 1, -65521, 1, 1, -65520, 1, 1, -65519, 1, 1, -65518, 1, 1, -65517, 1, 1, -65516, 0, 65536, -65515, 0, 65538, 5, 0, 0, 6, 0, 1, 7, 0, 1, 8, 0, 1, 9, 0, 1, 10, 0, 1, 11, 0, 1, 12, 0, 1, 13, 0, 1, 14, 0, 1, 15, 0, 1, 16, 0, 1, 17, 0, 1, 18, 0, 1, 19, 0, 1, 20, 0, 65536, 21, 0, 65538, 65541, 0, 65536, 65542, 0, 65537, 65543, 0, 65537, 65544, 0, 65537, 65545, 0, 65537, 65546, 0, 65537, 65547, 0, 65537, 65548, 0, 65537, 65549, 0, 65537, 65550, 0, 65537, 65551, 0, 65537, 65552, 0, 65537, 65553, 0, 65537, 65554, 0, 65537, 65555, 0, 65537, 65556, 0, 65537, 65557, 0, 65538, 131077, 0, 65536, 131078, 0, 65537, 131079, 0, 65537, 131080, 0, 65537, 131081, 0, 65537, 131082, 0, 65537, 131083, 0, 65537, 131084, 0, 65537, 131085, 0, 65537, 131086, 0, 65537, 131087, 0, 65537, 131088, 0, 65537, 131089, 0, 65537, 131090, 0, 65537, 131091, 0, 131075, 131092, 0, 131073, 131093, 0, 131074, 196611, 0, 0, 196612, 0, 1, 196613, 0, 65537, 196614, 0, 65537, 196615, 0, 65537, 196616, 0, 65537, 196617, 0, 65537, 196618, 0, 65537, 196619, 0, 65537, 196620, 0, 65537, 196621, 0, 65537, 196622, 0, 65537, 196623, 0, 65537, 196624, 0, 65537, 196625, 0, 65537, 196626, 0, 65537, 196627, 0, 65538, 262147, 0, 65536, 262148, 0, 65537, 262149, 0, 65537, 262150, 0, 65537, 262151, 0, 65537, 262152, 0, 65537, 262153, 0, 65537, 262154, 0, 65537, 262155, 0, 65537, 262156, 0, 65537, 262157, 0, 65537, 262158, 0, 65537, 262159, 0, 65537, 262160, 0, 65537, 262161, 0, 65537, 262162, 0, 65537, 262163, 0, 65538, 327683, 0, 65536, 327684, 0, 65537, 327685, 0, 65537, 327686, 0, 65537, 327687, 0, 65537, 327688, 0, 65537, 327689, 0, 65537, 327690, 0, 65537, 327691, 0, 65537, 327692, 0, 65537, 327693, 0, 65537, 327694, 0, 65537, 327695, 0, 65537, 327696, 0, 131075, 327697, 0, 131073, 327698, 0, 131073, 327699, 0, 131074, 393219, 0, 131072, 393220, 0, 65539, 393221, 0, 65537, 393222, 0, 65537, 393223, 0, 65537, 393224, 0, 65537, 393225, 0, 65537, 393226, 0, 65537, 393227, 0, 65537, 393228, 0, 65537, 393229, 0, 65537, 393230, 0, 65537, 393231, 0, 65537, 393232, 0, 65538, 458756, 0, 131072, 458757, 0, 131073, 458758, 0, 131073, 458759, 0, 131073, 458760, 0, 131073, 458761, 0, 65539, 458762, 0, 65537, 458763, 0, 65537, 458764, 0, 65537, 458765, 0, 65537, 458766, 0, 65537, 458767, 0, 65537, 458768, 0, 65538, 524297, 0, 131072, 524298, 0, 131073, 524299, 0, 131073, 524300, 0, 65539, 524301, 0, 131075, 524302, 0, 131073, 524303, 0, 131073, 524304, 0, 131074, 589836, 0, 65536, 589837, 0, 65538, 655372, 0, 65536, 655373, 0, 65538, 720908, 0, 65536, 720909, 0, 65538, 786444, 0, 65536, 786445, 0, 65538, 851980, 0, 65536, 851981, 0, 65538, 917516, 0, 65536, 917517, 0, 65538, 983052, 0, 65536, 983053, 0, 65538, 1048588, 0, 65536, 1048589, 0, 65538 )
+tile_data = PoolIntArray( -917499, 1, 196608, -917498, 1, 196609, -917497, 1, 196609, -917496, 1, 196609, -917495, 1, 196609, -917494, 1, 196609, -917493, 1, 196609, -917492, 1, 196610, -917482, 0, 196609, -917481, 0, 196609, -917480, 0, 196609, -917479, 0, 196609, -917478, 0, 196609, -917477, 0, 196609, -851963, 1, 196608, -851962, 1, 65538, -851961, 1, 65539, -851960, 1, 196609, -851959, 1, 65536, -851958, 1, 65537, -851957, 1, 196609, -851956, 1, 196610, -851955, 0, 1, -851954, 0, 1, -851953, 0, 1, -851952, 0, 1, -851951, 0, 1, -851950, 0, 1, -851949, 0, 1, -851948, 0, 1, -851947, 0, 1, -851940, 0, 1, -851939, 0, 1, -851938, 0, 1, -851937, 0, 1, -851936, 0, 1, -851935, 0, 1, -851934, 0, 1, -851933, 0, 1, -851932, 0, 2, -786427, 1, 0, -786426, 1, 131074, -786425, 1, 131075, -786424, 1, 131072, -786423, 1, 1, -786422, 1, 1, -786421, 1, 1, -786420, 1, 2, -786419, 0, 65537, -786418, 0, 65537, -786417, 0, 65537, -786416, 0, 65537, -786415, 0, 65537, -786414, 0, 65537, -786413, 0, 65537, -786412, 0, 65537, -786411, 0, 65537, -786404, 0, 65537, -786403, 0, 65537, -786402, 0, 65537, -786401, 0, 65537, -786400, 0, 65537, -786399, 0, 65537, -786398, 0, 65537, -786397, 0, 65537, -786396, 0, 65538, -720891, 0, 65536, -720890, 0, 65537, -720889, 0, 65537, -720888, 0, 65537, -720887, 0, 65537, -720886, 0, 65537, -720885, 0, 65537, -720884, 0, 65537, -720883, 0, 65537, -720882, 0, 65537, -720881, 0, 65537, -720880, 0, 131075, -720879, 0, 131073, -720878, 0, 131073, -720877, 0, 131073, -720876, 0, 131073, -720875, 0, 131073, -720868, 0, 131073, -720867, 0, 131073, -720866, 0, 131073, -720865, 0, 131073, -720864, 0, 131073, -720863, 0, 131073, -720862, 0, 65539, -720861, 0, 65537, -720860, 0, 65538, -655355, 0, 65536, -655354, 0, 65537, -655353, 0, 65537, -655352, 0, 65537, -655351, 0, 65537, -655350, 0, 65537, -655349, 0, 65537, -655348, 0, 65537, -655347, 0, 65537, -655346, 0, 65537, -655345, 0, 65537, -655344, 0, 65538, -655343, 1, 196609, -655342, 1, 196609, -655341, 1, 196609, -655340, 1, 196609, -655339, 1, 196610, -655338, 0, 196609, -655337, 0, 196609, -655336, 0, 196609, -655335, 0, 196609, -655334, 0, 196609, -655333, 0, 196609, -655332, 1, 196608, -655331, 1, 196609, -655330, 1, 196609, -655329, 1, 196609, -655328, 1, 196609, -655327, 1, 196609, -655326, 0, 65536, -655325, 0, 65537, -655324, 0, 65538, -589819, 0, 65536, -589818, 0, 131075, -589817, 0, 131073, -589816, 0, 131073, -589815, 0, 131073, -589814, 0, 131073, -589813, 0, 131073, -589812, 0, 131073, -589811, 0, 131073, -589810, 0, 131073, -589809, 0, 131073, -589808, 0, 131074, -589807, 1, 65536, -589806, 1, 65537, -589805, 1, 196609, -589804, 1, 196609, -589803, 1, 196610, -589796, 1, 196608, -589795, 1, 65536, -589794, 1, 65537, -589793, 1, 65536, -589792, 1, 65537, -589791, 1, 196609, -589790, 0, 65536, -589789, 0, 65537, -589788, 0, 65538, -524283, 0, 65536, -524282, 0, 65538, -524281, 1, 196609, -524280, 1, 196609, -524279, 1, 196609, -524278, 1, 196609, -524277, 1, 196609, -524276, 1, 196609, -524275, 1, 196609, -524274, 1, 196609, -524273, 1, 196609, -524272, 1, 196610, -524271, 1, 65536, -524270, 1, 65537, -524269, 1, 65538, -524268, 1, 65539, -524267, 1, 196610, -524260, 1, 196608, -524259, 1, 196609, -524258, 1, 196609, -524257, 1, 196609, -524256, 1, 196609, -524255, 1, 196609, -524254, 0, 65536, -524253, 0, 65537, -524252, 0, 65538, -458747, 0, 65536, -458746, 0, 65538, -458745, 1, 196609, -458744, 1, 65536, -458743, 1, 65537, -458742, 1, 196609, -458741, 1, 65536, -458740, 1, 65537, -458739, 1, 196609, -458738, 1, 65538, -458737, 1, 65539, -458736, 1, 196610, -458735, 1, 1, -458734, 1, 1, -458733, 1, 131074, -458732, 1, 131075, -458731, 1, 2, -458724, 1, 0, -458723, 1, 1, -458722, 1, 1, -458721, 1, 1, -458720, 1, 1, -458719, 1, 1, -458718, 0, 65536, -458717, 0, 65537, -458716, 0, 65538, -393211, 0, 65536, -393210, 0, 65538, -393209, 1, 1, -393208, 1, 1, -393207, 1, 1, -393206, 1, 1, -393205, 1, 1, -393204, 1, 1, -393203, 1, 1, -393202, 1, 131074, -393201, 1, 131075, -393200, 1, 2, -393199, 0, 65537, -393198, 0, 65537, -393197, 0, 65537, -393196, 0, 65537, -393195, 0, 65538, -393188, 0, 65536, -393187, 0, 65537, -393186, 0, 65537, -393185, 0, 65537, -393184, 0, 65537, -393183, 0, 65537, -393182, 0, 65537, -393181, 0, 65537, -393180, 0, 65538, -327675, 0, 65536, -327674, 0, 65537, -327673, 0, 65537, -327672, 0, 65537, -327671, 0, 65537, -327670, 0, 65537, -327669, 0, 65537, -327668, 0, 65537, -327667, 0, 65537, -327666, 0, 65537, -327665, 0, 65537, -327664, 0, 65537, -327663, 0, 65537, -327662, 0, 65537, -327661, 0, 65537, -327660, 0, 65537, -327659, 0, 65538, -327652, 0, 65536, -327651, 0, 65537, -327650, 0, 65537, -327649, 0, 65537, -327648, 0, 65537, -327647, 0, 65537, -327646, 0, 65537, -327645, 0, 65537, -327644, 0, 65538, -262139, 0, 131072, -262138, 0, 131073, -262137, 0, 131073, -262136, 0, 131073, -262135, 0, 131073, -262134, 0, 131073, -262133, 0, 131073, -262132, 0, 131073, -262131, 0, 131073, -262130, 0, 131073, -262129, 0, 131073, -262128, 0, 131073, -262127, 0, 131073, -262126, 0, 131073, -262125, 0, 131073, -262124, 0, 65539, -262123, 0, 65538, -262116, 0, 131072, -262115, 0, 131073, -262114, 0, 131073, -262113, 0, 131073, -262112, 0, 131073, -262111, 0, 131073, -262110, 0, 131073, -262109, 0, 131073, -262108, 0, 131074, -196603, 1, 196608, -196602, 1, 196609, -196601, 1, 196609, -196600, 1, 196609, -196599, 1, 196609, -196598, 1, 196609, -196597, 1, 196609, -196596, 1, 196609, -196595, 1, 196609, -196594, 1, 196609, -196593, 1, 196609, -196592, 1, 196609, -196591, 1, 196609, -196590, 1, 196609, -196589, 1, 196609, -196588, 0, 65536, -196587, 0, 65538, -131067, 1, 196608, -131066, 1, 196609, -131065, 1, 196609, -131064, 1, 65536, -131063, 1, 65537, -131062, 1, 196609, -131061, 1, 65536, -131060, 1, 65537, -131059, 1, 196609, -131058, 1, 65536, -131057, 1, 65537, -131056, 1, 196609, -131055, 1, 65536, -131054, 1, 65537, -131053, 1, 196609, -131052, 0, 65536, -131051, 0, 65538, -65531, 1, 0, -65530, 1, 1, -65529, 1, 1, -65528, 1, 1, -65527, 1, 1, -65526, 1, 1, -65525, 1, 1, -65524, 1, 1, -65523, 1, 1, -65522, 1, 1, -65521, 1, 1, -65520, 1, 1, -65519, 1, 1, -65518, 1, 1, -65517, 1, 1, -65516, 0, 65536, -65515, 0, 65538, 5, 0, 65536, 6, 0, 65537, 7, 0, 65537, 8, 0, 65537, 9, 0, 65537, 10, 0, 65537, 11, 0, 65537, 12, 0, 65537, 13, 0, 65537, 14, 0, 65537, 15, 0, 65537, 16, 0, 65537, 17, 0, 65537, 18, 0, 65537, 19, 0, 65537, 20, 0, 65536, 21, 0, 65538, 65541, 0, 65536, 65542, 0, 65537, 65543, 0, 65537, 65544, 0, 65537, 65545, 0, 65537, 65546, 0, 65537, 65547, 0, 65537, 65548, 0, 65537, 65549, 0, 65537, 65550, 0, 65537, 65551, 0, 65537, 65552, 0, 65537, 65553, 0, 65537, 65554, 0, 65537, 65555, 0, 65537, 65556, 0, 65537, 65557, 0, 65538, 131077, 0, 65536, 131078, 0, 65537, 131079, 0, 65537, 131080, 0, 65537, 131081, 0, 65537, 131082, 0, 65537, 131083, 0, 65537, 131084, 0, 65537, 131085, 0, 65537, 131086, 0, 65537, 131087, 0, 65537, 131088, 0, 65537, 131089, 0, 65537, 131090, 0, 65537, 131091, 0, 131075, 131092, 0, 131073, 131093, 0, 131074, 196611, 0, 0, 196612, 0, 1, 196613, 0, 65537, 196614, 0, 65537, 196615, 0, 65537, 196616, 0, 65537, 196617, 0, 65537, 196618, 0, 65537, 196619, 0, 65537, 196620, 0, 65537, 196621, 0, 65537, 196622, 0, 65537, 196623, 0, 65537, 196624, 0, 65537, 196625, 0, 65537, 196626, 0, 65537, 196627, 0, 65538, 262147, 0, 65536, 262148, 0, 65537, 262149, 0, 65537, 262150, 0, 65537, 262151, 0, 65537, 262152, 0, 65537, 262153, 0, 65537, 262154, 0, 65537, 262155, 0, 65537, 262156, 0, 65537, 262157, 0, 65537, 262158, 0, 65537, 262159, 0, 65537, 262160, 0, 65537, 262161, 0, 65537, 262162, 0, 65537, 262163, 0, 65538, 327683, 0, 65536, 327684, 0, 65537, 327685, 0, 65537, 327686, 0, 65537, 327687, 0, 65537, 327688, 0, 65537, 327689, 0, 65537, 327690, 0, 65537, 327691, 0, 65537, 327692, 0, 65537, 327693, 0, 65537, 327694, 0, 65537, 327695, 0, 65537, 327696, 0, 131075, 327697, 0, 131073, 327698, 0, 131073, 327699, 0, 131074, 393219, 0, 131072, 393220, 0, 65539, 393221, 0, 65537, 393222, 0, 65537, 393223, 0, 65537, 393224, 0, 65537, 393225, 0, 65537, 393226, 0, 65537, 393227, 0, 65537, 393228, 0, 65537, 393229, 0, 65537, 393230, 0, 65537, 393231, 0, 65537, 393232, 0, 65538, 458756, 0, 131072, 458757, 0, 131073, 458758, 0, 131073, 458759, 0, 131073, 458760, 0, 131073, 458761, 0, 65539, 458762, 0, 65537, 458763, 0, 65537, 458764, 0, 65537, 458765, 0, 65537, 458766, 0, 65537, 458767, 0, 65537, 458768, 0, 65538, 524297, 0, 131072, 524298, 0, 131073, 524299, 0, 131073, 524300, 0, 65539, 524301, 0, 131075, 524302, 0, 131073, 524303, 0, 131073, 524304, 0, 131074, 589836, 0, 65536, 589837, 0, 65538, 655372, 0, 65536, 655373, 0, 65538, 720908, 0, 65536, 720909, 0, 65538, 786444, 0, 65536, 786445, 0, 65538, 851980, 0, 65536, 851981, 0, 65538, 917516, 0, 65536, 917517, 0, 65538, 983052, 0, 65536, 983053, 0, 65538, 1048588, 0, 65536, 1048589, 0, 65538 )
 
 [node name="Node2D" type="Node2D" parent="TileMap"]
 z_index = -1
@@ -625,11 +676,22 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="window_light2" type="ColorRect" parent="TileMap/Node2D"]
-margin_left = 273.0
-margin_top = -143.0
-margin_right = 303.0
-margin_bottom = -112.0
+[node name="window_light2" type="ColorRect" parent="TileMap/Node2D/window_light"]
+margin_left = 145.0
+margin_top = -111.0
+margin_right = 175.0
+margin_bottom = -80.0
+color = Color( 0.964706, 0.498039, 0.0431373, 1 )
+script = SubResource( 36 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="window_light3" type="ColorRect" parent="TileMap/Node2D/window_light"]
+margin_left = 326.0
+margin_top = -118.0
+margin_right = 408.0
+margin_bottom = -87.0
 color = Color( 0.964706, 0.498039, 0.0431373, 1 )
 script = SubResource( 36 )
 __meta__ = {
@@ -637,14 +699,14 @@ __meta__ = {
 }
 
 [node name="easter" type="RichTextLabel" parent="TileMap/Node2D"]
-material = SubResource( 56 )
-margin_left = 224.0
-margin_top = -256.0
-margin_right = 853.0
-margin_bottom = 19.9999
+material = SubResource( 40 )
+margin_left = 215.21
+margin_top = -246.284
+margin_right = 844.21
+margin_bottom = 29.7157
 rect_scale = Vector2( 0.243203, 0.159445 )
-custom_fonts/normal_font = SubResource( 54 )
-text = "go back. please."
+custom_fonts/normal_font = SubResource( 41 )
+text = "look at me! i have coloursssss"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -665,9 +727,22 @@ __meta__ = {
 [node name="stairs2" type="TextureRect" parent="TileMap/stairs"]
 use_parent_material = true
 margin_left = -240.0
-margin_top = -91.0
-margin_right = -209.0
+margin_top = -80.0
+margin_right = -210.0
 margin_bottom = -28.0
+texture = ExtResource( 8 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="stairs3" type="TextureRect" parent="TileMap/stairs"]
+use_parent_material = true
+margin_left = 224.0
+margin_top = -112.0
+margin_right = 270.0
+margin_bottom = -44.0
 texture = ExtResource( 8 )
 expand = true
 stretch_mode = 2
@@ -687,39 +762,79 @@ uv = PoolVector2Array( 0.185184, 0, 32.084, 0.149925, 31.934, 31.934, 0.149925, 
 modulate = Color( 0.505882, 0.764706, 0.654902, 1 )
 use_parent_material = true
 position = Vector2( -390.227, -382.495 )
-scale = Vector2( 1, 1 )
 texture = ExtResource( 5 )
 polygon = PoolVector2Array( -119.122, -7.96864, 0, -7.96864, 0, 51.7962, -119.122, 51.7962 )
 uv = PoolVector2Array( 0.185184, 0, 32.084, 0.149925, 31.934, 31.934, 0.149925, 31.7841 )
+
+[node name="mover" type="Area2D" parent="TileMap"]
+position = Vector2( 352.25, -164 )
+script = SubResource( 62 )
+
+[node name="transport" type="TextureRect" parent="TileMap/mover"]
+material = SubResource( 61 )
+margin_right = 43.0
+margin_bottom = 96.0
+rect_rotation = -90.0
+texture = ExtResource( 13 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="collider" type="CollisionShape2D" parent="TileMap/mover"]
+position = Vector2( 47.75, -21.75 )
+shape = SubResource( 63 )
+
+[node name="roof" type="Node2D" parent="TileMap"]
+use_parent_material = true
+scale = Vector2( 0.25, 0.25 )
+z_index = 2
+
+[node name="back" type="Polygon2D" parent="TileMap/roof"]
+modulate = Color( 0.329412, 0.0431373, 0.34902, 1 )
+use_parent_material = true
+position = Vector2( 324, -877 )
+scale = Vector2( 4.10286, 4.41026 )
+texture = ExtResource( 14 )
+polygon = PoolVector2Array( -5.84958, -1.81395, 13.649, -38.093, 109.192, -38.093, 130, -2 )
+uv = PoolVector2Array( 0, 31.9375, -0.0951462, 0.190296, 32.0968, 0.161285, 32.0296, 31.8182 )
+
+[node name="color" type="Polygon2D" parent="TileMap/roof"]
+use_parent_material = true
+position = Vector2( 326, -885 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 14 )
+polygon = PoolVector2Array( -4, -2, 14.5, -38.75, 110.5, -38.75, 130, -2 )
+uv = PoolVector2Array( 0, 31.9375, -0.0951462, 0.190296, 32.0968, 0.161285, 32.0296, 31.8182 )
 
 [node name="world" type="YSort" parent="."]
 material = SubResource( 4 )
 
 [node name="hyenakid" type="KinematicBody2D" parent="world"]
 use_parent_material = true
-position = Vector2( 448, 380 )
+position = Vector2( 1115, -740 )
 scale = Vector2( 2, 2 )
-script = SubResource( 37 )
+script = ExtResource( 11 )
 
 [node name="sprite" type="AnimatedSprite" parent="world/hyenakid"]
 use_parent_material = true
 scale = Vector2( 2, 2 )
-frames = SubResource( 42 )
+frames = SubResource( 45 )
 animation = "still"
 offset = Vector2( 0, -16 )
 
 [node name="eyes" type="Sprite" parent="world/hyenakid/sprite"]
 modulate = Color( 1, 0.592157, 0.0156863, 1 )
-material = SubResource( 44 )
+material = SubResource( 47 )
 texture = ExtResource( 4 )
 offset = Vector2( 0, -16 )
 
 [node name="collider" type="CollisionShape2D" parent="world/hyenakid"]
 position = Vector2( 0, -2 )
-shape = SubResource( 45 )
+shape = SubResource( 48 )
 
 [node name="camera" type="Camera2D" parent="world/hyenakid"]
-visible = false
 position = Vector2( -0.220123, -28.1535 )
 current = true
 limit_left = -10000377
@@ -736,12 +851,26 @@ editor_draw_drag_margin = true
 z_index = -4
 
 [node name="back0" type="ColorRect" parent="world/hyenakid/background"]
-material = SubResource( 47 )
+material = SubResource( 50 )
 margin_left = -370.0
 margin_top = -288.0
 margin_right = 366.0
 margin_bottom = 272.0
-script = SubResource( 48 )
+script = SubResource( 51 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="foreground" type="Node2D" parent="world/hyenakid"]
+z_index = 4
+
+[node name="ColorRect" type="ColorRect" parent="world/hyenakid/foreground"]
+visible = false
+material = SubResource( 58 )
+margin_left = -298.0
+margin_top = -223.0
+margin_right = 303.0
+margin_bottom = 145.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -749,12 +878,12 @@ __meta__ = {
 [node name="sign" type="StaticBody2D" parent="world"]
 use_parent_material = true
 position = Vector2( 1004, 128 )
-script = SubResource( 49 )
+script = SubResource( 52 )
 
 [node name="collider" type="CollisionShape2D" parent="world/sign"]
 position = Vector2( -2.109, -6.163 )
 scale = Vector2( 1.286, 0.626 )
-shape = SubResource( 50 )
+shape = SubResource( 53 )
 
 [node name="sprite" type="Sprite" parent="world/sign"]
 use_parent_material = true
@@ -765,7 +894,7 @@ offset = Vector2( 0, -16 )
 [node name="detector" type="Area2D" parent="world/sign"]
 
 [node name="collider" type="CollisionShape2D" parent="world/sign/detector"]
-shape = SubResource( 51 )
+shape = SubResource( 54 )
 
 [node name="dialog" type="ColorRect" parent="world/sign"]
 margin_left = -76.0
@@ -783,7 +912,7 @@ __meta__ = {
 margin_right = 241.0
 margin_bottom = 88.0
 rect_scale = Vector2( 0.631624, 0.544723 )
-custom_fonts/normal_font = SubResource( 52 )
+custom_fonts/normal_font = SubResource( 55 )
 custom_colors/default_color = Color( 0.266667, 0, 0.403922, 1 )
 bbcode_enabled = true
 bbcode_text = "[center]This is a test room.
@@ -796,6 +925,8 @@ __meta__ = {
 }
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 53 )
+environment = SubResource( 56 )
+[connection signal="body_entered" from="TileMap/mover" to="TileMap/mover" method="_on_mover_body_entered"]
+[connection signal="body_exited" from="TileMap/mover" to="TileMap/mover" method="_on_mover_body_exited"]
 [connection signal="body_entered" from="world/sign/detector" to="world/sign" method="_on_detector_body_entered"]
 [connection signal="body_exited" from="world/sign/detector" to="world/sign" method="_on_detector_body_exited"]
