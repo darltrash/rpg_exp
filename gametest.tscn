@@ -1,0 +1,801 @@
+[gd_scene load_steps=68 format=2]
+
+[ext_resource path="res://sprites/hyenakid/spritesheet0.png" type="Texture" id=1]
+[ext_resource path="res://tilesets/spritesheet0.png" type="Texture" id=2]
+[ext_resource path="res://tilesets/house.png" type="Texture" id=3]
+[ext_resource path="res://sprites/hyenakid/eyes.png" type="Texture" id=4]
+[ext_resource path="res://sprites/misc/carpet.png" type="Texture" id=5]
+[ext_resource path="res://sprites/backgrounds/starlight.png" type="Texture" id=6]
+[ext_resource path="res://sprites/misc/sign.png" type="Texture" id=7]
+[ext_resource path="res://tilesets/stairs.png" type="Texture" id=8]
+[ext_resource path="res://Oswald-VariableFont_wght.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://sprites/misc/snow.png" type="Texture" id=10]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+uniform sampler2D gradient: hint_black;
+uniform float mix_amount = 1.0;
+
+void fragment() {
+	vec4 input_color = texture(TEXTURE, UV);
+	float grayscale_value = dot(input_color.rgb, vec3(0.299, 0.587, 0.114));
+	vec3 sampled_color = texture(gradient, vec2(grayscale_value, 0.0)).rgb;
+	
+	COLOR.rgb = mix(input_color.rgb, sampled_color, mix_amount);
+	COLOR.a = input_color.a;
+}"
+
+[sub_resource type="Gradient" id=2]
+colors = PoolColorArray( 0.129819, 0.00274658, 0.175781, 1, 0.00479126, 0, 0.613281, 1 )
+
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 1 )
+shader_param/mix_amount = 0.7
+shader_param/gradient = SubResource( 3 )
+
+[sub_resource type="ConvexPolygonShape2D" id=5]
+points = PoolVector2Array( 16, 0, 16, 1, 1, 1, 1, 16, 0, 16, 0, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=6]
+points = PoolVector2Array( 16, 1, 0, 1, 0, 0, 16, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=7]
+points = PoolVector2Array( 16, 0, 16, 16, 15, 16, 15, 1, 0, 1, 0, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=8]
+points = PoolVector2Array( 16, 16, 15, 16, 15, 0, 16, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=9]
+points = PoolVector2Array( 1, 16, 0, 16, 0, 12, 1, 12 )
+
+[sub_resource type="ConvexPolygonShape2D" id=10]
+points = PoolVector2Array( 1, 0, 1, 12, 15, 12, 15, 1, 1, 1, 1, 0, 16, 0, 16, 16, 0, 16, 0, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=11]
+points = PoolVector2Array( 16, 16, 15, 16, 15, 12, 16, 12 )
+
+[sub_resource type="ConvexPolygonShape2D" id=12]
+points = PoolVector2Array( 16, 1, 15, 1, 15, 0, 16, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=13]
+points = PoolVector2Array( 0, 0, 1, 0, 1, 1, 0, 1 )
+
+[sub_resource type="ConvexPolygonShape2D" id=14]
+points = PoolVector2Array( 0, 12, 15, 12, 15, 0, 16, 0, 16, 16, 0, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=15]
+points = PoolVector2Array( 16, 16, 0, 16, 0, 12, 16, 12 )
+
+[sub_resource type="ConvexPolygonShape2D" id=16]
+points = PoolVector2Array( 0, 0, 1, 0, 1, 12, 16, 12, 16, 16, 0, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=17]
+points = PoolVector2Array( 1, 16, 0, 16, 0, 0, 1, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=18]
+points = PoolVector2Array( 16, 16, 0, 16, 0, 14, 16, 14 )
+
+[sub_resource type="ConvexPolygonShape2D" id=19]
+points = PoolVector2Array( 16, 1, 0, 1, 0, 0, 16, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=20]
+points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=21]
+points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=22]
+points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=23]
+points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=24]
+points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=25]
+points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=26]
+points = PoolVector2Array( 5, 16, 0, 16, 0, 0, 5, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=27]
+points = PoolVector2Array( 16, 16, 11, 16, 11, 0, 16, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=28]
+points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=29]
+points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=30]
+points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+
+[sub_resource type="TileSet" id=31]
+0/name = "spriteshit.png 0"
+0/texture = ExtResource( 2 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 64, 64 )
+0/tile_mode = 2
+0/autotile/icon_coordinate = Vector2( 0, 0 )
+0/autotile/tile_size = Vector2( 16, 16 )
+0/autotile/spacing = 0
+0/autotile/occluder_map = [  ]
+0/autotile/navpoly_map = [  ]
+0/autotile/priority_map = [  ]
+0/autotile/z_index_map = [  ]
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape = SubResource( 5 )
+0/shape_one_way = false
+0/shape_one_way_margin = 1.0
+0/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 5 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 1, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 6 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 2, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 7 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 2, 1 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 8 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 3, 1 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 9 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 3, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 10 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 3, 2 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 11 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 3, 3 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 12 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 2, 3 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 13 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 2, 2 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 14 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 1, 2 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 15 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 2 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 16 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 1 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 17 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 3 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 18 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 3 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 19 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+0/z_index = 0
+1/name = "windowshade.png 1"
+1/texture = ExtResource( 3 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 0, 0, 64, 64 )
+1/tile_mode = 2
+1/autotile/icon_coordinate = Vector2( 0, 0 )
+1/autotile/tile_size = Vector2( 16, 16 )
+1/autotile/spacing = 0
+1/autotile/occluder_map = [  ]
+1/autotile/navpoly_map = [  ]
+1/autotile/priority_map = [  ]
+1/autotile/z_index_map = [  ]
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shape_offset = Vector2( 0, 0 )
+1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape = SubResource( 20 )
+1/shape_one_way = false
+1/shape_one_way_margin = 1.0
+1/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 20 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 1, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 21 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 2, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 22 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 1 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 23 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 1, 1 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 24 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 2 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 25 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 2, 2 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 26 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 3, 2 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 27 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 3 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 28 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 1, 3 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 29 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 2, 3 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 30 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+1/z_index = 0
+
+[sub_resource type="Shader" id=32]
+code = "shader_type canvas_item;
+uniform sampler2D color;
+uniform sampler2D particles;
+
+void fragment() {
+	COLOR = texture(color, vec2(UV.y, 0));
+}"
+
+[sub_resource type="Gradient" id=33]
+colors = PoolColorArray( 0.128815, 0, 0.246094, 1, 0, 0, 0, 0 )
+
+[sub_resource type="GradientTexture" id=34]
+gradient = SubResource( 33 )
+
+[sub_resource type="ShaderMaterial" id=35]
+shader = SubResource( 32 )
+shader_param/color = SubResource( 34 )
+shader_param/particles = ExtResource( 10 )
+
+[sub_resource type="GDScript" id=36]
+script/source = "extends ColorRect
+
+func _process(delta):
+	modulate.a = lerp(modulate.a, 1 - rand_range(1,50)/100, delta*2)
+"
+
+[sub_resource type="Shader" id=55]
+code = "shader_type canvas_item;
+uniform sampler2D gradient;
+
+void fragment() {
+	COLOR = texture(gradient, UV+sin(TIME)) * texture(TEXTURE, UV);
+}"
+
+[sub_resource type="Gradient" id=57]
+offsets = PoolRealArray( 0, 0.532609, 1 )
+colors = PoolColorArray( 0.0466919, 0.128281, 0.996094, 1, 0.453125, 0, 1, 1, 1, 0.632812, 0, 1 )
+
+[sub_resource type="GradientTexture" id=58]
+gradient = SubResource( 57 )
+
+[sub_resource type="ShaderMaterial" id=56]
+shader = SubResource( 55 )
+shader_param/gradient = SubResource( 58 )
+
+[sub_resource type="DynamicFont" id=54]
+size = 80
+use_filter = true
+font_data = ExtResource( 9 )
+
+[sub_resource type="GDScript" id=37]
+script/source = "extends KinematicBody2D
+var velocity = Vector2()
+var maxvel = Vector2(250, 250)
+var moving = false
+
+func _process(delta):
+	moving = false
+	if Input.is_action_pressed(\"ui_left\"):
+		velocity.x = -maxvel.x
+		$sprite.scale.x = -2
+		moving = true
+	elif Input.is_action_pressed(\"ui_right\"):
+		velocity.x = maxvel.x
+		$sprite.scale.x = 2
+		moving = true
+	else:
+		velocity.x = lerp(velocity.x, 0, 10 * delta)
+		
+	if Input.is_action_pressed(\"ui_up\"):
+		velocity.y = -maxvel.y
+		moving = true
+	elif Input.is_action_pressed(\"ui_down\"):
+		velocity.y = maxvel.y
+		moving = true
+	else:
+		velocity.y = lerp(velocity.y, 0, 10 * delta)
+		
+	if moving: 
+		$sprite.play(\"moving\")
+	else:
+		$sprite.play(\"still\")
+		
+	move_and_slide(velocity)
+
+
+"
+
+[sub_resource type="AtlasTexture" id=38]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=39]
+atlas = ExtResource( 1 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=40]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=42]
+animations = [ {
+"frames": [ SubResource( 38 ) ],
+"loop": true,
+"name": "still",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 39 ), SubResource( 40 ) ],
+"loop": true,
+"name": "moving",
+"speed": 5.0
+} ]
+
+[sub_resource type="Shader" id=43]
+code = "shader_type canvas_item;
+
+void fragment() {
+	COLOR = texture(TEXTURE, UV, 2.);
+}"
+
+[sub_resource type="ShaderMaterial" id=44]
+shader = SubResource( 43 )
+
+[sub_resource type="RectangleShape2D" id=45]
+extents = Vector2( 10, 2.06219 )
+
+[sub_resource type="Shader" id=46]
+code = "shader_type canvas_item;
+uniform float time_amp = 1;
+uniform float scale = 1;
+uniform float freq = 2;
+uniform float amp = 0.05;
+uniform float sp_scale = 1;
+uniform float sl_sizemultiplier = 2;
+uniform float sl_amp = 1;
+uniform vec4 color: hint_color;
+uniform sampler2D tex;
+
+void fragment() {
+	vec2 modUV = SCREEN_UV/sp_scale;
+	vec2 sinedistort = vec2(amp * sin(freq * modUV.y + scale * (TIME*time_amp)), 0.);
+	vec2 scanlinedistort = vec2(mod(FRAGCOORD.y/sl_sizemultiplier, 2.0), 0) * sl_amp;
+	COLOR = texture(tex, modUV+sinedistort+scanlinedistort)*color;
+}"
+
+[sub_resource type="ShaderMaterial" id=47]
+shader = SubResource( 46 )
+shader_param/time_amp = 1.335
+shader_param/scale = 0.143
+shader_param/freq = 2.184
+shader_param/amp = -0.049
+shader_param/sp_scale = 0.362
+shader_param/sl_sizemultiplier = 0.8
+shader_param/sl_amp = 0.0
+shader_param/color = Color( 1, 1, 1, 0.964706 )
+shader_param/tex = ExtResource( 6 )
+
+[sub_resource type="GDScript" id=48]
+script/source = "extends ColorRect
+func _ready():
+	pass # Replace with function body.
+"
+
+[sub_resource type="GDScript" id=49]
+script/source = "extends StaticBody2D
+var player_on = false
+var t = 1
+
+func cerp(a,b,t): 
+	var f = (1-cos(t*PI))*.5 
+	return a*(1-f)+b*f 
+
+func _process(delta):
+	if player_on:
+		$dialog.rect_scale.x = cerp($dialog.rect_scale.x, 1, 13*delta)
+	else:
+		$dialog.rect_scale.x = cerp($dialog.rect_scale.x, 0, 13*delta)
+		
+	$dialog.visible = ($dialog.rect_scale.x>0.05)
+
+
+func _on_detector_body_entered(body):
+	if body.get_name()==\"hyenakid\":
+		player_on = true
+
+func _on_detector_body_exited(body):
+	if body.get_name()==\"hyenakid\":
+		player_on = false
+"
+
+[sub_resource type="RectangleShape2D" id=50]
+extents = Vector2( 8, 10 )
+
+[sub_resource type="RectangleShape2D" id=51]
+extents = Vector2( 144, 44 )
+
+[sub_resource type="DynamicFont" id=52]
+size = 33
+use_filter = true
+extra_spacing_top = -8
+font_data = ExtResource( 9 )
+
+[sub_resource type="Environment" id=53]
+background_mode = 4
+background_energy = 1.23
+background_canvas_max_layer = 1
+ambient_light_color = Color( 0.0235294, 0.105882, 0.968627, 1 )
+ambient_light_energy = 0.0
+auto_exposure_enabled = true
+auto_exposure_max_luma = 6.61
+ss_reflections_fade_in = 0.0699775
+dof_blur_far_distance = 0.05
+dof_blur_far_transition = 2.73
+glow_enabled = true
+glow_intensity = 1.26
+glow_strength = 1.2
+glow_bloom = 0.16
+glow_hdr_threshold = 0.83
+
+[node name="Node2D" type="Node2D"]
+material = SubResource( 4 )
+
+[node name="TileMap" type="TileMap" parent="."]
+use_parent_material = true
+scale = Vector2( 4, 4 )
+tile_set = SubResource( 31 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( -851955, 0, 0, -851954, 0, 1, -851953, 0, 1, -851952, 0, 1, -851951, 0, 1, -851950, 0, 1, -851949, 0, 1, -851948, 0, 1, -851947, 0, 2, -786419, 0, 65536, -786418, 0, 65537, -786417, 0, 65537, -786416, 0, 65537, -786415, 0, 65537, -786414, 0, 65537, -786413, 0, 65537, -786412, 0, 65537, -786411, 0, 65538, -720891, 0, 0, -720890, 0, 1, -720889, 0, 1, -720888, 0, 1, -720887, 0, 1, -720886, 0, 1, -720885, 0, 1, -720884, 0, 1, -720883, 0, 196610, -720882, 0, 65537, -720881, 0, 65537, -720880, 0, 131075, -720879, 0, 131073, -720878, 0, 131073, -720877, 0, 131073, -720876, 0, 131073, -720875, 0, 131074, -655355, 0, 65536, -655354, 0, 65537, -655353, 0, 65537, -655352, 0, 65537, -655351, 0, 65537, -655350, 0, 65537, -655349, 0, 65537, -655348, 0, 65537, -655347, 0, 65537, -655346, 0, 65537, -655345, 0, 65537, -655344, 0, 65538, -655343, 1, 196609, -655342, 1, 196609, -655341, 1, 196609, -655340, 1, 196609, -655339, 1, 196610, -589819, 0, 65536, -589818, 0, 65537, -589817, 0, 131072, -589816, 0, 131073, -589815, 0, 131073, -589814, 0, 131073, -589813, 0, 131073, -589812, 0, 131073, -589811, 0, 131073, -589810, 0, 131073, -589809, 0, 131073, -589808, 0, 131074, -589807, 1, 65536, -589806, 1, 65537, -589805, 1, 196609, -589804, 1, 196609, -589803, 1, 196610, -524283, 0, 65536, -524282, 0, 65537, -524281, 1, 196608, -524280, 1, 196609, -524279, 1, 196609, -524278, 1, 196609, -524277, 1, 196609, -524276, 1, 196609, -524275, 1, 196609, -524274, 1, 196609, -524273, 1, 196609, -524272, 1, 196610, -524271, 1, 65536, -524270, 1, 65537, -524269, 1, 65538, -524268, 1, 65539, -524267, 1, 196610, -458747, 0, 65536, -458746, 0, 65537, -458745, 1, 196608, -458744, 1, 65536, -458743, 1, 65537, -458742, 1, 196609, -458741, 1, 65536, -458740, 1, 65537, -458739, 1, 196609, -458738, 1, 65538, -458737, 1, 65539, -458736, 1, 196610, -458735, 1, 1, -458734, 1, 1, -458733, 1, 131074, -458732, 1, 131075, -458731, 1, 2, -393211, 0, 65536, -393210, 0, 65537, -393209, 1, 0, -393208, 1, 1, -393207, 1, 1, -393206, 1, 1, -393205, 1, 1, -393204, 1, 1, -393203, 1, 1, -393202, 1, 131074, -393201, 1, 131075, -393200, 1, 2, -393199, 0, 65537, -393198, 0, 65537, -393197, 0, 65537, -393196, 0, 65537, -393195, 0, 65538, -327675, 0, 65536, -327674, 0, 65537, -327673, 0, 65537, -327672, 0, 65537, -327671, 0, 65537, -327670, 0, 65537, -327669, 0, 65537, -327668, 0, 65537, -327667, 0, 65537, -327666, 0, 65537, -327665, 0, 65537, -327664, 0, 65537, -327663, 0, 65537, -327662, 0, 65537, -327661, 0, 65537, -327660, 0, 65537, -327659, 0, 65538, -262139, 0, 131072, -262138, 0, 131073, -262137, 0, 131073, -262136, 0, 131073, -262135, 0, 131073, -262134, 0, 131073, -262133, 0, 131073, -262132, 0, 131073, -262131, 0, 131073, -262130, 0, 131073, -262129, 0, 131073, -262128, 0, 131073, -262127, 0, 131073, -262126, 0, 131073, -262125, 0, 131073, -262124, 0, 65539, -262123, 0, 65538, -196603, 1, 196608, -196602, 1, 196609, -196601, 1, 196609, -196600, 1, 196609, -196599, 1, 196609, -196598, 1, 196609, -196597, 1, 196609, -196596, 1, 196609, -196595, 1, 196609, -196594, 1, 196609, -196593, 1, 196609, -196592, 1, 196609, -196591, 1, 196609, -196590, 1, 196609, -196589, 1, 196609, -196588, 0, 65536, -196587, 0, 65538, -131067, 1, 196608, -131066, 1, 196609, -131065, 1, 196609, -131064, 1, 65536, -131063, 1, 65537, -131062, 1, 196609, -131061, 1, 65536, -131060, 1, 65537, -131059, 1, 196609, -131058, 1, 65536, -131057, 1, 65537, -131056, 1, 196609, -131055, 1, 65536, -131054, 1, 65537, -131053, 1, 196609, -131052, 0, 65536, -131051, 0, 65538, -65531, 1, 0, -65530, 1, 1, -65529, 1, 1, -65528, 1, 1, -65527, 1, 1, -65526, 1, 1, -65525, 1, 1, -65524, 1, 1, -65523, 1, 1, -65522, 1, 1, -65521, 1, 1, -65520, 1, 1, -65519, 1, 1, -65518, 1, 1, -65517, 1, 1, -65516, 0, 65536, -65515, 0, 65538, 5, 0, 0, 6, 0, 1, 7, 0, 1, 8, 0, 1, 9, 0, 1, 10, 0, 1, 11, 0, 1, 12, 0, 1, 13, 0, 1, 14, 0, 1, 15, 0, 1, 16, 0, 1, 17, 0, 1, 18, 0, 1, 19, 0, 1, 20, 0, 65536, 21, 0, 65538, 65541, 0, 65536, 65542, 0, 65537, 65543, 0, 65537, 65544, 0, 65537, 65545, 0, 65537, 65546, 0, 65537, 65547, 0, 65537, 65548, 0, 65537, 65549, 0, 65537, 65550, 0, 65537, 65551, 0, 65537, 65552, 0, 65537, 65553, 0, 65537, 65554, 0, 65537, 65555, 0, 65537, 65556, 0, 65537, 65557, 0, 65538, 131077, 0, 65536, 131078, 0, 65537, 131079, 0, 65537, 131080, 0, 65537, 131081, 0, 65537, 131082, 0, 65537, 131083, 0, 65537, 131084, 0, 65537, 131085, 0, 65537, 131086, 0, 65537, 131087, 0, 65537, 131088, 0, 65537, 131089, 0, 65537, 131090, 0, 65537, 131091, 0, 131075, 131092, 0, 131073, 131093, 0, 131074, 196611, 0, 0, 196612, 0, 1, 196613, 0, 65537, 196614, 0, 65537, 196615, 0, 65537, 196616, 0, 65537, 196617, 0, 65537, 196618, 0, 65537, 196619, 0, 65537, 196620, 0, 65537, 196621, 0, 65537, 196622, 0, 65537, 196623, 0, 65537, 196624, 0, 65537, 196625, 0, 65537, 196626, 0, 65537, 196627, 0, 65538, 262147, 0, 65536, 262148, 0, 65537, 262149, 0, 65537, 262150, 0, 65537, 262151, 0, 65537, 262152, 0, 65537, 262153, 0, 65537, 262154, 0, 65537, 262155, 0, 65537, 262156, 0, 65537, 262157, 0, 65537, 262158, 0, 65537, 262159, 0, 65537, 262160, 0, 65537, 262161, 0, 65537, 262162, 0, 65537, 262163, 0, 65538, 327683, 0, 65536, 327684, 0, 65537, 327685, 0, 65537, 327686, 0, 65537, 327687, 0, 65537, 327688, 0, 65537, 327689, 0, 65537, 327690, 0, 65537, 327691, 0, 65537, 327692, 0, 65537, 327693, 0, 65537, 327694, 0, 65537, 327695, 0, 65537, 327696, 0, 131075, 327697, 0, 131073, 327698, 0, 131073, 327699, 0, 131074, 393219, 0, 131072, 393220, 0, 65539, 393221, 0, 65537, 393222, 0, 65537, 393223, 0, 65537, 393224, 0, 65537, 393225, 0, 65537, 393226, 0, 65537, 393227, 0, 65537, 393228, 0, 65537, 393229, 0, 65537, 393230, 0, 65537, 393231, 0, 65537, 393232, 0, 65538, 458756, 0, 131072, 458757, 0, 131073, 458758, 0, 131073, 458759, 0, 131073, 458760, 0, 131073, 458761, 0, 65539, 458762, 0, 65537, 458763, 0, 65537, 458764, 0, 65537, 458765, 0, 65537, 458766, 0, 65537, 458767, 0, 65537, 458768, 0, 65538, 524297, 0, 131072, 524298, 0, 131073, 524299, 0, 131073, 524300, 0, 65539, 524301, 0, 131075, 524302, 0, 131073, 524303, 0, 131073, 524304, 0, 131074, 589836, 0, 65536, 589837, 0, 65538, 655372, 0, 65536, 655373, 0, 65538, 720908, 0, 65536, 720909, 0, 65538, 786444, 0, 65536, 786445, 0, 65538, 851980, 0, 65536, 851981, 0, 65538, 917516, 0, 65536, 917517, 0, 65538, 983052, 0, 65536, 983053, 0, 65538, 1048588, 0, 65536, 1048589, 0, 65538 )
+
+[node name="Node2D" type="Node2D" parent="TileMap"]
+z_index = -1
+
+[node name="lightgradient" type="ColorRect" parent="TileMap/Node2D"]
+material = SubResource( 35 )
+margin_left = 64.0
+margin_top = 128.0
+margin_right = 144.0
+margin_bottom = 192.0
+color = Color( 0.796078, 0.858824, 0.988235, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="fall2" type="ColorRect" parent="TileMap/Node2D/lightgradient"]
+material = SubResource( 35 )
+margin_left = 80.0
+margin_top = 16.0
+margin_right = 208.0
+margin_bottom = 80.0
+color = Color( 0.796078, 0.858824, 0.988235, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="fall3" type="ColorRect" parent="TileMap/Node2D/lightgradient"]
+material = SubResource( 35 )
+margin_left = 208.0
+margin_top = -32.0
+margin_right = 256.0
+margin_bottom = 32.0
+color = Color( 0.796078, 0.858824, 0.988235, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="fall4" type="ColorRect" parent="TileMap/Node2D/lightgradient"]
+material = SubResource( 35 )
+margin_left = -16.0
+margin_top = -16.0
+margin_bottom = 48.0
+color = Color( 0.796078, 0.858824, 0.988235, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="fall5" type="ColorRect" parent="TileMap/Node2D/lightgradient"]
+material = SubResource( 35 )
+margin_left = 256.0
+margin_top = -80.0
+margin_right = 288.0
+margin_bottom = -16.0
+color = Color( 0.796078, 0.858824, 0.988235, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="fall6" type="ColorRect" parent="TileMap/Node2D/lightgradient"]
+material = SubResource( 35 )
+margin_left = 16.0
+margin_top = -176.0
+margin_right = 48.0
+margin_bottom = -112.0
+color = Color( 0.796078, 0.858824, 0.988235, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="window_light" type="ColorRect" parent="TileMap/Node2D"]
+margin_left = 128.0
+margin_top = -32.0
+margin_right = 304.0
+margin_bottom = -15.0
+color = Color( 0.964706, 0.368627, 0.0431373, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="window_light2" type="ColorRect" parent="TileMap/Node2D"]
+margin_left = 273.0
+margin_top = -143.0
+margin_right = 303.0
+margin_bottom = -112.0
+color = Color( 0.964706, 0.498039, 0.0431373, 1 )
+script = SubResource( 36 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="easter" type="RichTextLabel" parent="TileMap/Node2D"]
+material = SubResource( 56 )
+margin_left = 224.0
+margin_top = -256.0
+margin_right = 853.0
+margin_bottom = 19.9999
+rect_scale = Vector2( 0.243203, 0.159445 )
+custom_fonts/normal_font = SubResource( 54 )
+text = "go back. please."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="stairs" type="TextureRect" parent="TileMap"]
+use_parent_material = true
+margin_left = 321.0
+margin_top = -52.0
+margin_right = 351.0
+margin_bottom = 16.0
+texture = ExtResource( 8 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="stairs2" type="TextureRect" parent="TileMap/stairs"]
+use_parent_material = true
+margin_left = -240.0
+margin_top = -91.0
+margin_right = -209.0
+margin_bottom = -28.0
+texture = ExtResource( 8 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Carpet" type="Polygon2D" parent="TileMap"]
+use_parent_material = true
+position = Vector2( 350, 20 )
+scale = Vector2( 0.243448, 0.250984 )
+texture = ExtResource( 5 )
+polygon = PoolVector2Array( -119.122, -7.96864, 0, -7.96864, 0, 51.7962, -119.122, 51.7962 )
+uv = PoolVector2Array( 0.185184, 0, 32.084, 0.149925, 31.934, 31.934, 0.149925, 31.7841 )
+
+[node name="Carpet2" type="Polygon2D" parent="TileMap/Carpet"]
+modulate = Color( 0.505882, 0.764706, 0.654902, 1 )
+use_parent_material = true
+position = Vector2( -390.227, -382.495 )
+scale = Vector2( 1, 1 )
+texture = ExtResource( 5 )
+polygon = PoolVector2Array( -119.122, -7.96864, 0, -7.96864, 0, 51.7962, -119.122, 51.7962 )
+uv = PoolVector2Array( 0.185184, 0, 32.084, 0.149925, 31.934, 31.934, 0.149925, 31.7841 )
+
+[node name="world" type="YSort" parent="."]
+material = SubResource( 4 )
+
+[node name="hyenakid" type="KinematicBody2D" parent="world"]
+use_parent_material = true
+position = Vector2( 448, 380 )
+scale = Vector2( 2, 2 )
+script = SubResource( 37 )
+
+[node name="sprite" type="AnimatedSprite" parent="world/hyenakid"]
+use_parent_material = true
+scale = Vector2( 2, 2 )
+frames = SubResource( 42 )
+animation = "still"
+offset = Vector2( 0, -16 )
+
+[node name="eyes" type="Sprite" parent="world/hyenakid/sprite"]
+modulate = Color( 1, 0.592157, 0.0156863, 1 )
+material = SubResource( 44 )
+texture = ExtResource( 4 )
+offset = Vector2( 0, -16 )
+
+[node name="collider" type="CollisionShape2D" parent="world/hyenakid"]
+position = Vector2( 0, -2 )
+shape = SubResource( 45 )
+
+[node name="camera" type="Camera2D" parent="world/hyenakid"]
+visible = false
+position = Vector2( -0.220123, -28.1535 )
+current = true
+limit_left = -10000377
+limit_smoothed = true
+smoothing_enabled = true
+drag_margin_left = 0.5
+drag_margin_top = 0.5
+drag_margin_right = 0.5
+drag_margin_bottom = 0.5
+editor_draw_limits = true
+editor_draw_drag_margin = true
+
+[node name="background" type="Node2D" parent="world/hyenakid"]
+z_index = -4
+
+[node name="back0" type="ColorRect" parent="world/hyenakid/background"]
+material = SubResource( 47 )
+margin_left = -370.0
+margin_top = -288.0
+margin_right = 366.0
+margin_bottom = 272.0
+script = SubResource( 48 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="sign" type="StaticBody2D" parent="world"]
+use_parent_material = true
+position = Vector2( 1004, 128 )
+script = SubResource( 49 )
+
+[node name="collider" type="CollisionShape2D" parent="world/sign"]
+position = Vector2( -2.109, -6.163 )
+scale = Vector2( 1.286, 0.626 )
+shape = SubResource( 50 )
+
+[node name="sprite" type="Sprite" parent="world/sign"]
+use_parent_material = true
+scale = Vector2( 4, 4 )
+texture = ExtResource( 7 )
+offset = Vector2( 0, -16 )
+
+[node name="detector" type="Area2D" parent="world/sign"]
+
+[node name="collider" type="CollisionShape2D" parent="world/sign/detector"]
+shape = SubResource( 51 )
+
+[node name="dialog" type="ColorRect" parent="world/sign"]
+margin_left = -76.0
+margin_top = -144.0
+margin_right = 76.0
+margin_bottom = -96.0
+rect_scale = Vector2( 0.05, 1 )
+rect_pivot_offset = Vector2( 76, 14 )
+color = Color( 0.964706, 0.54902, 0.219608, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="text" type="RichTextLabel" parent="world/sign/dialog"]
+margin_right = 241.0
+margin_bottom = 88.0
+rect_scale = Vector2( 0.631624, 0.544723 )
+custom_fonts/normal_font = SubResource( 52 )
+custom_colors/default_color = Color( 0.266667, 0, 0.403922, 1 )
+bbcode_enabled = true
+bbcode_text = "[center]This is a test room.
+Go upstairs."
+tab_size = 3
+text = "This is a test room.
+Go upstairs."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 53 )
+[connection signal="body_entered" from="world/sign/detector" to="world/sign" method="_on_detector_body_entered"]
+[connection signal="body_exited" from="world/sign/detector" to="world/sign" method="_on_detector_body_exited"]

@@ -1,0 +1,170 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Oswald-VariableFont_wght.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://background.tscn" type="PackedScene" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "fade_in_stars"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("background/back2:material:shader_param/color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 5, 10 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 0 ), Color( 1, 1, 1, 0.854902 ), Color( 1, 1, 1, 0.964706 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("background/back2:material:shader_param/amp")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 10 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.002, 0.17 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("shader:material:shader_param/power")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 10 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 3.163 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("shader:material:shader_param/color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 10 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.47451, 0.47451, 0.501961, 1 ) ]
+}
+
+[sub_resource type="Shader" id=2]
+code = "shader_type canvas_item;
+uniform float power: hint_range(0,5);
+uniform vec4 color: hint_color;
+
+void fragment() {
+	COLOR = texture(SCREEN_TEXTURE, SCREEN_UV, power) * color;
+}"
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = SubResource( 2 )
+shader_param/power = 3.163
+shader_param/color = Color( 0.47451, 0.47451, 0.501961, 1 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 80
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+use_filter = true
+extra_spacing_top = -25
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 25
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="Shader" id=6]
+code = "shader_type canvas_item;
+uniform float power: hint_range(0,5);
+uniform vec4 color: hint_color;
+
+void fragment() {
+	COLOR = mix((texture(SCREEN_TEXTURE, SCREEN_UV, power)*color),texture(SCREEN_TEXTURE, SCREEN_UV),0.5);
+}"
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = SubResource( 6 )
+shader_param/power = 1.442
+shader_param/color = Color( 1, 1, 1, 0.321569 )
+
+[node name="Node2D" type="Node2D"]
+
+[node name="background" parent="." instance=ExtResource( 2 )]
+
+[node name="animation0" type="AnimationPlayer" parent="."]
+anims/fade_in_stars = SubResource( 1 )
+
+[node name="shader" type="ColorRect" parent="."]
+visible = false
+material = SubResource( 3 )
+margin_right = 1030.0
+margin_bottom = 604.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Warning" type="Node2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Warning"]
+margin_left = 360.0
+margin_top = 197.0
+margin_right = 662.0
+margin_bottom = 274.0
+color = Color( 0.996078, 0.996078, 0.996078, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="title" type="RichTextLabel" parent="Warning"]
+margin_left = 1.0
+margin_top = 197.493
+margin_right = 1024.0
+margin_bottom = 276.493
+custom_fonts/normal_font = SubResource( 4 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+bbcode_enabled = true
+bbcode_text = "[center]WARNING[/center]"
+text = "WARNING"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="body" type="RichTextLabel" parent="Warning"]
+margin_left = 1.0
+margin_top = 274.0
+margin_right = 1024.0
+margin_bottom = 563.0
+custom_fonts/normal_font = SubResource( 5 )
+bbcode_enabled = true
+bbcode_text = "[center]By playing this game, you accept that this game can damage you and your device.
+You should close this game RIGHT NOW if you suffer from seizures or photosensitive diseases.
+This game is also a very rough beta demo, so things may change from beta to stable.
+ [/center]"
+text = "By playing this game, you accept that this game can damage you and your device.
+You should close this game RIGHT NOW if you suffer from seizures or photosensitive diseases.
+This game is also a very rough beta demo, so things may change from beta to stable.
+ "
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="shader2" type="ColorRect" parent="Warning"]
+material = SubResource( 7 )
+margin_left = -4.0
+margin_top = -4.0
+margin_right = 1034.0
+margin_bottom = 610.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
