@@ -1,0 +1,148 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://objects/hyenakid.gd" type="Script" id=1]
+[ext_resource path="res://sprites/hyenakid/eyes.png" type="Texture" id=2]
+[ext_resource path="res://sprites/hyenakid/spritesheet0.png" type="Texture" id=3]
+[ext_resource path="res://sprites/backgrounds/starlight.png" type="Texture" id=4]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 3 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ) ],
+"loop": true,
+"name": "moving",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 3 ) ],
+"loop": true,
+"name": "still",
+"speed": 5.0
+} ]
+
+[sub_resource type="Shader" id=5]
+code = "shader_type canvas_item;
+
+void fragment() {
+	COLOR = texture(TEXTURE, UV, 2.);
+}"
+
+[sub_resource type="ShaderMaterial" id=6]
+shader = SubResource( 5 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 38, 2.06219 )
+
+[sub_resource type="Shader" id=8]
+code = "shader_type canvas_item;
+uniform float time_amp = 1;
+uniform float scale = 1;
+uniform float freq = 2;
+uniform float amp = 0.05;
+uniform float sp_scale = 1;
+uniform float sl_sizemultiplier = 2;
+uniform float sl_amp = 1;
+uniform vec4 color: hint_color;
+uniform sampler2D tex;
+
+void fragment() {
+	vec2 modUV = SCREEN_UV/sp_scale;
+	vec2 sinedistort = vec2(amp * sin(freq * modUV.y + scale * (TIME*time_amp)), 0.);
+	vec2 scanlinedistort = vec2(mod(FRAGCOORD.y/sl_sizemultiplier, 2.0), 0) * sl_amp;
+	COLOR = texture(tex, modUV+sinedistort+scanlinedistort)*color;
+}"
+
+[sub_resource type="ShaderMaterial" id=9]
+shader = SubResource( 8 )
+shader_param/time_amp = 1.0
+shader_param/scale = 1.0
+shader_param/freq = 2.0
+shader_param/amp = 0.05
+shader_param/sp_scale = 1.0
+shader_param/sl_sizemultiplier = 2.0
+shader_param/sl_amp = 1.0
+shader_param/color = Color( 1, 1, 1, 0.964706 )
+shader_param/tex = ExtResource( 4 )
+
+[sub_resource type="GDScript" id=10]
+script/source = "extends ColorRect
+func _ready():
+	pass # Replace with function body.
+"
+
+[node name="hyenakid" type="KinematicBody2D"]
+use_parent_material = true
+position = Vector2( 186, 380 )
+collision_layer = 3
+collision_mask = 3
+script = ExtResource( 1 )
+
+[node name="sprite" type="AnimatedSprite" parent="."]
+use_parent_material = true
+scale = Vector2( -4, 4 )
+frames = SubResource( 4 )
+animation = "moving"
+offset = Vector2( 0, -16 )
+
+[node name="eyes" type="Sprite" parent="sprite"]
+modulate = Color( 1, 0.592157, 0.0156863, 1 )
+material = SubResource( 6 )
+texture = ExtResource( 2 )
+offset = Vector2( 0, -16 )
+
+[node name="collider" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -2 )
+shape = SubResource( 7 )
+
+[node name="camera" type="Camera2D" parent="."]
+position = Vector2( -0.220123, -28.1535 )
+current = true
+limit_left = -10000377
+smoothing_enabled = true
+drag_margin_left = 0.5
+drag_margin_top = 0.5
+drag_margin_right = 0.5
+drag_margin_bottom = 0.5
+editor_draw_limits = true
+editor_draw_drag_margin = true
+
+[node name="background" type="Node2D" parent="."]
+scale = Vector2( 2, 2 )
+z_index = -4
+
+[node name="back0" type="ColorRect" parent="background"]
+material = SubResource( 9 )
+margin_left = -370.0
+margin_top = -288.5
+margin_right = 366.0
+margin_bottom = 271.5
+script = SubResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Listener" type="Listener" parent="."]
+current = true
+
+[node name="ontop" type="Node2D" parent="."]
+z_index = 20
+
+[node name="ColorRect" type="ColorRect" parent="ontop"]
+visible = false
+margin_left = -651.0
+margin_top = -438.0
+margin_right = 668.0
+margin_bottom = 380.0
+__meta__ = {
+"_edit_use_anchors_": false
+}

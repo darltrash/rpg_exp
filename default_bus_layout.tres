@@ -1,0 +1,30 @@
+[gd_resource type="AudioBusLayout" load_steps=3 format=2]
+
+[sub_resource type="AudioEffectReverb" id=1]
+resource_name = "Reverb"
+room_size = 0.76
+wet = 0.33
+
+[sub_resource type="AudioEffectLowPassFilter" id=2]
+resource_name = "LowPassFilter"
+cutoff_hz = 4920.0
+resonance = 0.05
+
+[resource]
+bus/0/volume_db = 1.25825
+bus/1/name = "reverb"
+bus/1/solo = false
+bus/1/mute = false
+bus/1/bypass_fx = false
+bus/1/volume_db = 0.0
+bus/1/send = "Master"
+bus/1/effect/0/effect = SubResource( 1 )
+bus/1/effect/0/enabled = true
+bus/2/name = "indoor"
+bus/2/solo = false
+bus/2/mute = false
+bus/2/bypass_fx = false
+bus/2/volume_db = 0.0
+bus/2/send = "Master"
+bus/2/effect/0/effect = SubResource( 2 )
+bus/2/effect/0/enabled = true

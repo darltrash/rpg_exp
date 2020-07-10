@@ -1,0 +1,1641 @@
+[gd_scene load_steps=105 format=2]
+
+[ext_resource path="res://tilesets/house.png" type="Texture" id=1]
+[ext_resource path="res://tilesets/spritesheet0.png" type="Texture" id=2]
+[ext_resource path="res://sprites/misc/transport.png" type="Texture" id=3]
+[ext_resource path="res://tilesets/ceiling.png" type="Texture" id=4]
+[ext_resource path="res://sprites/misc/carpet.png" type="Texture" id=5]
+[ext_resource path="res://tilesets/stairs.png" type="Texture" id=6]
+[ext_resource path="res://sprites/misc/sign.png" type="Texture" id=7]
+[ext_resource path="res://sprites/misc/signeyes.png" type="Texture" id=8]
+[ext_resource path="res://sprites/misc/trashcan.png" type="Texture" id=9]
+[ext_resource path="res://sprites/misc/weird_floating_thing_face.png" type="Texture" id=10]
+[ext_resource path="res://sprites/misc/switches.png" type="Texture" id=11]
+[ext_resource path="res://Oswald-VariableFont_wght.ttf" type="DynamicFontData" id=12]
+[ext_resource path="res://sprites/misc/signface.png" type="Texture" id=13]
+[ext_resource path="res://sprites/misc/snow.png" type="Texture" id=14]
+[ext_resource path="res://sprites/misc/DANGER.png" type="Texture" id=15]
+[ext_resource path="res://tilesets/misteryhouse.png" type="Texture" id=16]
+[ext_resource path="res://objects/hyenakid.tscn" type="PackedScene" id=17]
+[ext_resource path="res://shaders/gradientmap.tres" type="Material" id=18]
+[ext_resource path="res://objects/elevatortransport.tscn" type="PackedScene" id=20]
+
+[sub_resource type="ConvexPolygonShape2D" id=1]
+points = PoolVector2Array( 16, 0, 16, 1, 1, 1, 1, 16, 0, 16, 0, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=2]
+points = PoolVector2Array( 16, 1, 0, 1, 0, 0, 16, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=3]
+points = PoolVector2Array( 16, 0, 16, 16, 15, 16, 15, 1, 0, 1, 0, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=4]
+points = PoolVector2Array( 16, 16, 15, 16, 15, 0, 16, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=5]
+points = PoolVector2Array( 1, 16, 0, 16, 0, 12, 1, 12 )
+
+[sub_resource type="ConvexPolygonShape2D" id=6]
+points = PoolVector2Array( 1, 0, 1, 12, 15, 12, 15, 1, 1, 1, 1, 0, 16, 0, 16, 16, 0, 16, 0, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=7]
+points = PoolVector2Array( 16, 16, 15, 16, 15, 12, 16, 12 )
+
+[sub_resource type="ConvexPolygonShape2D" id=8]
+points = PoolVector2Array( 16, 1, 15, 1, 15, 0, 16, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=9]
+points = PoolVector2Array( 0, 0, 1, 0, 1, 1, 0, 1 )
+
+[sub_resource type="ConvexPolygonShape2D" id=10]
+points = PoolVector2Array( 0, 12, 15, 12, 15, 0, 16, 0, 16, 16, 0, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=11]
+points = PoolVector2Array( 16, 16, 0, 16, 0, 12, 16, 12 )
+
+[sub_resource type="ConvexPolygonShape2D" id=12]
+points = PoolVector2Array( 0, 0, 1, 0, 1, 12, 16, 12, 16, 16, 0, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=13]
+points = PoolVector2Array( 1, 16, 0, 16, 0, 0, 1, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=14]
+points = PoolVector2Array( 16, 16, 0, 16, 0, 14, 16, 14 )
+
+[sub_resource type="ConvexPolygonShape2D" id=15]
+points = PoolVector2Array( 16, 1, 0, 1, 0, 0, 16, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=16]
+points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=17]
+points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=18]
+points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=19]
+points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=20]
+points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=21]
+points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=22]
+points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=23]
+points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=24]
+points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=25]
+points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=26]
+points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=27]
+points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+
+[sub_resource type="TileSet" id=28]
+0/name = "spriteshit.png 0"
+0/texture = ExtResource( 2 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 64, 64 )
+0/tile_mode = 2
+0/autotile/icon_coordinate = Vector2( 0, 0 )
+0/autotile/tile_size = Vector2( 16, 16 )
+0/autotile/spacing = 0
+0/autotile/occluder_map = [  ]
+0/autotile/navpoly_map = [  ]
+0/autotile/priority_map = [  ]
+0/autotile/z_index_map = [  ]
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape = SubResource( 1 )
+0/shape_one_way = false
+0/shape_one_way_margin = 1.0
+0/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 1 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 1, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 2 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 2, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 3 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 2, 1 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 4 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 3, 1 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 5 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 3, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 6 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 3, 2 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 7 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 3, 3 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 8 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 2, 3 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 9 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 2, 2 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 10 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 1, 2 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 11 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 2 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 12 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 1 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 13 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 3 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 14 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 3 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 15 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 1, 3 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 16 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+0/z_index = 0
+1/name = "windowshade.png 1"
+1/texture = ExtResource( 1 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 0, 0, 64, 64 )
+1/tile_mode = 2
+1/autotile/icon_coordinate = Vector2( 0, 0 )
+1/autotile/tile_size = Vector2( 16, 16 )
+1/autotile/spacing = 0
+1/autotile/occluder_map = [  ]
+1/autotile/navpoly_map = [  ]
+1/autotile/priority_map = [  ]
+1/autotile/z_index_map = [  ]
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shape_offset = Vector2( 0, 0 )
+1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape = SubResource( 17 )
+1/shape_one_way = false
+1/shape_one_way_margin = 1.0
+1/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 17 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 1, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 18 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 2, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 19 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 1 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 20 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 1, 1 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 21 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 2 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 22 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 3 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 23 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 1, 3 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 24 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 2, 3 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 25 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 2, 2 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 26 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 3, 2 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 27 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+1/z_index = 0
+
+[sub_resource type="Shader" id=29]
+code = "shader_type canvas_item;
+uniform sampler2D color;
+uniform sampler2D particles;
+
+void fragment() {
+	COLOR = texture(color, vec2(UV.y, 0));
+}"
+
+[sub_resource type="Gradient" id=30]
+colors = PoolColorArray( 0.062107, 0, 0.145508, 1, 0, 0, 0, 0 )
+
+[sub_resource type="GradientTexture" id=31]
+gradient = SubResource( 30 )
+
+[sub_resource type="ShaderMaterial" id=32]
+shader = SubResource( 29 )
+shader_param/color = SubResource( 31 )
+shader_param/particles = ExtResource( 14 )
+
+[sub_resource type="Shader" id=33]
+code = "shader_type canvas_item;
+uniform sampler2D gradient;
+
+void fragment() {
+	COLOR = texture(gradient, SCREEN_UV+sin(TIME+(SCREEN_UV.y*2.))) * texture(TEXTURE, UV, 5.);
+}"
+
+[sub_resource type="Gradient" id=34]
+offsets = PoolRealArray( 0, 0.532609, 1 )
+colors = PoolColorArray( 0.21875, 0, 1, 1, 0.453125, 0, 1, 1, 1, 0.632812, 0, 1 )
+
+[sub_resource type="GradientTexture" id=35]
+gradient = SubResource( 34 )
+
+[sub_resource type="ShaderMaterial" id=36]
+shader = SubResource( 33 )
+shader_param/gradient = SubResource( 35 )
+
+[sub_resource type="DynamicFont" id=37]
+size = 57
+use_filter = true
+extra_spacing_top = -7
+extra_spacing_bottom = -7
+font_data = ExtResource( 12 )
+
+[sub_resource type="GDScript" id=38]
+script/source = "extends RichTextLabel
+onready var base = get_node(\"../../..\")
+
+func _process(delta):
+	if base.get_material().get_shader_param(\"mix_amount\")==1:
+		bbcode_text = \"[center]okay, who tf turned off the lights?\"
+	else:
+		bbcode_text = '[center]\"Iogurte de Bacalhau é bom mas não tem espinhas.\" - Cláudio 2020'
+"
+
+[sub_resource type="GDScript" id=39]
+script/source = "extends Area2D
+var objects = Array()
+
+var t = 0
+func _process(delta):
+	t = t + delta
+	if t>1:
+		t = t - 1
+	$transport.get_material().set_shader_param(\"move\", -t)
+	
+	for x in objects:
+		if x.get(\"velocity\"):
+			x.velocity.x = x.velocity.x - 100
+		elif x is RigidBody2D:
+			x.apply_central_impulse(Vector2(-100/15,0))
+
+func _on_mover_body_entered(body):
+	objects.append(body)
+
+func _on_mover_body_exited(body):
+	objects.erase(body)
+"
+
+[sub_resource type="Shader" id=40]
+code = "shader_type canvas_item;
+uniform float rot = 1.570;
+uniform float move = 0;
+
+vec2 rotateUV(vec2 uv, vec2 pivot, float rotation) {
+    float sine = sin(rotation);
+    float cosine = cos(rotation);
+
+    uv -= pivot;
+    uv.x = uv.x * cosine - uv.y * sine;
+    uv.y = uv.x * sine + uv.y * cosine;
+    uv += pivot;
+
+    return uv;
+}
+
+void fragment() {
+    COLOR = texture(TEXTURE, rotateUV(UV, vec2(0.5), rot)+move);
+}"
+
+[sub_resource type="ShaderMaterial" id=41]
+shader = SubResource( 40 )
+shader_param/rot = 1.57
+shader_param/move = 0.0
+
+[sub_resource type="RectangleShape2D" id=42]
+extents = Vector2( 48, 24.034 )
+
+[sub_resource type="DynamicFont" id=43]
+size = 33
+use_filter = true
+extra_spacing_top = -8
+font_data = ExtResource( 12 )
+
+[sub_resource type="GDScript" id=44]
+script/source = "extends ColorRect
+var t = 0
+var enabled = true
+onready var d = get_parent().get_node(\"dialog\")
+
+func _process(delta):
+	if enabled:
+		d.rect_scale.x = lerp(d.rect_scale.x, 0, 13*delta)
+		t = t + delta
+		rect_rotation =+ sin(t)*180
+		get_parent().position.y = get_parent().position.y + sin(t)
+	else: 
+		d.rect_scale.x = lerp(d.rect_scale.x, 0.25, 13*delta)
+	d.visible = (d.rect_scale.x>0.002)
+"
+
+[sub_resource type="Shader" id=45]
+code = "shader_type canvas_item;
+uniform float power: hint_range(0.,1.);
+
+float rand(vec2 co){
+    return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
+}
+
+void fragment() {
+	COLOR.rgb =+ vec3(rand(UV*(TIME/80.))) * power;
+}"
+
+[sub_resource type="ShaderMaterial" id=46]
+shader = SubResource( 45 )
+shader_param/power = 1.0
+
+[sub_resource type="ConvexPolygonShape2D" id=47]
+points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=48]
+points = PoolVector2Array( 1, 16, 1, 10, 13, 10, 13, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=49]
+points = PoolVector2Array( 14, 10, 16, 10, 16, 16, 14, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=50]
+points = PoolVector2Array( 16, 16, 0, 16, 0, 10, 16, 10 )
+
+[sub_resource type="ConvexPolygonShape2D" id=51]
+points = PoolVector2Array( 15, 16, 3, 16, 3, 10, 15, 10 )
+
+[sub_resource type="ConvexPolygonShape2D" id=52]
+points = PoolVector2Array( 0, 0, 12, 0, 12, 8, 0, 8 )
+
+[sub_resource type="ConvexPolygonShape2D" id=53]
+points = PoolVector2Array( 16, 8, 4, 8, 4, 0, 16, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=54]
+points = PoolVector2Array( 16, 16, 4, 16, 4, 14, 16, 14 )
+
+[sub_resource type="ConvexPolygonShape2D" id=55]
+points = PoolVector2Array( 12, 16, 0, 16, 0, 14, 12, 14 )
+
+[sub_resource type="ConvexPolygonShape2D" id=56]
+points = PoolVector2Array( 0, 10, 2, 10, 2, 16, 0, 16 )
+
+[sub_resource type="TileSet" id=57]
+0/name = "misteryhouse.png 0"
+0/texture = ExtResource( 16 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 64, 48 )
+0/tile_mode = 2
+0/autotile/icon_coordinate = Vector2( 0, 0 )
+0/autotile/tile_size = Vector2( 16, 16 )
+0/autotile/spacing = 0
+0/autotile/occluder_map = [  ]
+0/autotile/navpoly_map = [  ]
+0/autotile/priority_map = [  ]
+0/autotile/z_index_map = [  ]
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape = SubResource( 47 )
+0/shape_one_way = false
+0/shape_one_way_margin = 1.0
+0/shapes = [ {
+"autotile_coord": Vector2( 3, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 47 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 48 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 49 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 1, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 50 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 2, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 51 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 1, 2 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 52 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 2 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 53 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 1 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 54 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 1, 1 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 55 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 2, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 56 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+0/z_index = 0
+
+[sub_resource type="RectangleShape2D" id=58]
+extents = Vector2( 92, 61.25 )
+
+[sub_resource type="GDScript" id=59]
+script/source = "extends Node2D
+
+func _process(delta):
+	for x in get_children():
+		if x.player_on:
+			if x.force:
+				if x.animate:
+					get_node(\"../../world/hyenakid\").nextpos = x.get_node(\"position\").global_position
+				else: 
+					get_node(\"../../world/hyenakid\").global_position = x.get_node(\"position\").global_position
+"
+
+[sub_resource type="GDScript" id=60]
+script/source = "extends Area2D
+var force = true
+var player_on = false
+var animate = true
+
+func _body_entered(body):
+	if body.get_name()==\"hyenakid\":
+		player_on = true
+
+func _body_exited(body):
+	if body.get_name()==\"hyenakid\":
+		player_on = false
+	
+func _ready():
+	connect(\"body_entered\", self, \"_body_entered\")
+	connect(\"body_exited\", self, \"_body_exited\")
+"
+
+[sub_resource type="RectangleShape2D" id=61]
+extents = Vector2( 24.25, 17.25 )
+
+[sub_resource type="GDScript" id=62]
+script/source = "extends Area2D
+var force = true
+var player_on = false
+var animate = false
+
+func _body_entered(body):
+	if body.get_name()==\"hyenakid\":
+		player_on = true
+
+func _body_exited(body):
+	if body.get_name()==\"hyenakid\":
+		player_on = false
+	
+func _ready():
+	connect(\"body_entered\", self, \"_body_entered\")
+	connect(\"body_exited\", self, \"_body_exited\")
+"
+
+[sub_resource type="RectangleShape2D" id=63]
+extents = Vector2( 16.5, 8 )
+
+[sub_resource type="Shader" id=64]
+code = "shader_type canvas_item;
+
+vec2 rotateUV(vec2 uv, vec2 pivot, float rotation) {
+    float sine = sin(rotation);
+    float cosine = cos(rotation);
+
+    uv -= pivot;
+    uv.x = uv.x * cosine - uv.y * sine;
+    uv.y = uv.x * sine + uv.y * cosine;
+    uv += pivot;
+
+    return uv;
+}
+
+void fragment() {
+    COLOR = texture(TEXTURE, rotateUV(UV*2., texture(TEXTURE, UV).rg, TIME));
+}"
+
+[sub_resource type="ShaderMaterial" id=65]
+shader = SubResource( 64 )
+
+[sub_resource type="DynamicFont" id=66]
+use_filter = true
+font_data = ExtResource( 12 )
+
+[sub_resource type="GDScript" id=67]
+script/source = "extends StaticBody2D
+var player_on = false
+var get_happy = true
+var trashcan = false
+var took_trashcan = false
+var ti = 0 
+onready var base = get_node(\"../..\")
+
+func cerp(a,b,t): 
+	var f = (1-cos(t*PI))*.5 
+	return a*(1-f)+b*f 
+
+func _process(delta):
+	if player_on:
+		$dialog.rect_scale.x = cerp($dialog.rect_scale.x, 1, 13*delta)
+	else:
+		$dialog.rect_scale.x = cerp($dialog.rect_scale.x, 0, 13*delta)	
+	$dialog.visible = ($dialog.rect_scale.x>0.02)
+	
+	if player_on:
+		$title.rect_scale.x = cerp($title.rect_scale.x, 1, 13*delta)
+	else:
+		$title.rect_scale.x = cerp($title.rect_scale.x, 0, 13*delta)
+	$title.visible = ($title.rect_scale.x>0.02)
+	
+	if (player_on and get_happy) or (trashcan and get_happy):
+		$signface.rotation_degrees = cerp($signface.rotation_degrees, 180, delta*20)
+	else:
+		$signface.rotation_degrees = cerp($signface.rotation_degrees, 0, delta*20)
+		
+	if base.get_material().get_shader_param(\"mix_amount\")==1:
+		get_happy = false
+		$title/inside/text.bbcode_text = \"[center]Confused sign\"
+		$dialog/inside/text.bbcode_text = \"\"\"[center]uhhh, is this normal?
+i cant see anything!\"\"\"
+	else:
+		get_happy = true
+		$title/inside/text.bbcode_text = \"[center]Useless sign\"
+		$dialog/inside/text.bbcode_text = \"\"\"[center]I'm a useless sign :(
+You make my existence better :)\"\"\"
+		if took_trashcan:
+			$title/inside/text.bbcode_text = \"[center]Sad sign\"
+			$dialog/inside/text.bbcode_text = \"\"\"[center]you took away that trashcan :(
+they are my favorites :)\"\"\"
+		if trashcan:
+			$title/inside/text.bbcode_text = \"[center]Happy sign\"
+			$dialog/inside/text.bbcode_text = \"\"\"[center]OMG IS THAT A TRASHCAN?! :0
+I CANT BELIEVE IT!! THANKS :D\"\"\"
+
+func _on_detector_body_entered(body):
+	if body.get_name()==\"hyenakid\":
+		player_on = true
+	if body.get(\"kind\")==\"trashcan\":
+		trashcan = true
+
+func _on_detector_body_exited(body):
+	if body.get_name()==\"hyenakid\":
+		player_on = false
+	if body.get(\"kind\")==\"trashcan\":
+		trashcan = false
+		took_trashcan = true
+		$title.rect_scale.x = 0
+		$dialog.rect_scale.x = 0
+"
+
+[sub_resource type="RectangleShape2D" id=68]
+extents = Vector2( 8, 10 )
+
+[sub_resource type="RectangleShape2D" id=69]
+extents = Vector2( 144, 44 )
+
+[sub_resource type="GDScript" id=70]
+script/source = "extends StaticBody2D
+var player_on = false
+onready var base = get_node(\"../..\")
+
+func cerp(a,b,t): 
+	var f = (1-cos(t*PI))*.5 
+	return a*(1-f)+b*f 
+
+func _process(delta):
+	if player_on:
+		$dialog.rect_scale.x = cerp($dialog.rect_scale.x, 1, 13*delta)
+	else:
+		$dialog.rect_scale.x = cerp($dialog.rect_scale.x, 0, 13*delta)
+	$dialog.visible = ($dialog.rect_scale.x>0.02)
+	
+	if base.get_material().get_shader_param(\"mix_amount\")==1:
+		$dialog/dialog2/text.bbcode_text = \"[center]you literally cant read this, how are you even supposed to read something in total obscurity? wait- oh... your eyes emit light already, weird but cool i guess\"
+	else:
+		# I HATE THIS INDENTATION SO MUCH
+		$dialog/dialog2/text.bbcode_text = \"\"\"[center]WARNING:
+SLIPPERY TRASH CANS!
+WELL, THERE IS A GIANT FORCE-
+FIELD, BUT THE COLLISION-
+SYSTEM BUGS ANYWAYS!!\"\"\"
+
+func _on_detector_body_entered(body):
+	if body.get_name()==\"hyenakid\":
+		player_on = true
+
+func _on_detector_body_exited(body):
+	if body.get_name()==\"hyenakid\":
+		player_on = false
+"
+
+[sub_resource type="RectangleShape2D" id=71]
+extents = Vector2( 8, 10 )
+
+[sub_resource type="RectangleShape2D" id=72]
+extents = Vector2( 144, 44 )
+
+[sub_resource type="DynamicFont" id=73]
+size = 33
+use_filter = true
+extra_spacing_top = -8
+font_data = ExtResource( 12 )
+
+[sub_resource type="GDScript" id=74]
+script/source = "extends Area2D
+onready var enabled = $sprite.animation==\"on\"
+onready var weirdsun = get_node(\"../../tiles/uuhh_sun_maybe/weird\")
+onready var base = get_node(\"../..\")
+
+func _on_switch_body_entered(body):
+	if body.get_name()==\"hyenakid\":
+		enabled = not enabled
+		if enabled: 
+			$sprite.play(\"on\")
+			base.get_material().set_shader_param(\"mix_amount\", 0.7)
+		else: 
+			$sprite.play(\"off\")
+			base.get_material().set_shader_param(\"mix_amount\", 1)
+		weirdsun.enabled = enabled
+		
+"
+
+[sub_resource type="AtlasTexture" id=75]
+atlas = ExtResource( 11 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=76]
+atlas = ExtResource( 11 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=77]
+animations = [ {
+"frames": [ SubResource( 75 ) ],
+"loop": true,
+"name": "off",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 76 ) ],
+"loop": true,
+"name": "on",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=78]
+extents = Vector2( 50, 23 )
+
+[sub_resource type="GDScript" id=79]
+script/source = "extends RigidBody2D
+var kind = \"trashcan\"
+"
+
+[sub_resource type="CircleShape2D" id=80]
+radius = 21.5407
+
+[sub_resource type="Shader" id=81]
+code = "shader_type canvas_item;
+
+void fragment() {
+    vec3 col = texture(SCREEN_TEXTURE, SCREEN_UV).xyz * 0.16;
+    col += texture(SCREEN_TEXTURE, SCREEN_UV + vec2(0.0, SCREEN_PIXEL_SIZE.y)).xyz * 0.15;
+    col += texture(SCREEN_TEXTURE, SCREEN_UV + vec2(0.0, -SCREEN_PIXEL_SIZE.y)).xyz * 0.15;
+    col += texture(SCREEN_TEXTURE, SCREEN_UV + vec2(0.0, 2.0 * SCREEN_PIXEL_SIZE.y)).xyz * 0.12;
+    col += texture(SCREEN_TEXTURE, SCREEN_UV + vec2(0.0, 2.0 * -SCREEN_PIXEL_SIZE.y)).xyz * 0.12;
+    col += texture(SCREEN_TEXTURE, SCREEN_UV + vec2(0.0, 3.0 * SCREEN_PIXEL_SIZE.y)).xyz * 0.09;
+    col += texture(SCREEN_TEXTURE, SCREEN_UV + vec2(0.0, 3.0 * -SCREEN_PIXEL_SIZE.y)).xyz * 0.09;
+    col += texture(SCREEN_TEXTURE, SCREEN_UV + vec2(0.0, 4.0 * SCREEN_PIXEL_SIZE.y)).xyz * 0.05;
+    col += texture(SCREEN_TEXTURE, SCREEN_UV + vec2(0.0, 4.0 * -SCREEN_PIXEL_SIZE.y)).xyz * 0.05;
+    COLOR.rgb = col;
+}"
+
+[sub_resource type="ShaderMaterial" id=82]
+shader = SubResource( 81 )
+
+[sub_resource type="AtlasTexture" id=83]
+atlas = ExtResource( 16 )
+region = Rect2( 0, 0, 48, 16 )
+
+[sub_resource type="RectangleShape2D" id=84]
+extents = Vector2( 115, 20 )
+
+[sub_resource type="Environment" id=85]
+background_mode = 4
+background_energy = 1.23
+background_canvas_max_layer = 1
+ambient_light_color = Color( 0.0235294, 0.105882, 0.968627, 1 )
+ambient_light_energy = 0.0
+auto_exposure_enabled = true
+auto_exposure_max_luma = 6.61
+ss_reflections_fade_in = 0.0699775
+dof_blur_far_distance = 0.05
+dof_blur_far_transition = 2.73
+glow_enabled = true
+glow_intensity = 1.26
+glow_strength = 1.2
+glow_bloom = 0.16
+glow_hdr_threshold = 0.83
+
+[node name="basenode" type="Node2D"]
+material = ExtResource( 18 )
+
+[node name="tiles" type="TileMap" parent="."]
+use_parent_material = true
+scale = Vector2( 4, 4 )
+tile_set = SubResource( 28 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( -917499, 1, 196608, -917498, 1, 196609, -917497, 1, 196609, -917496, 1, 196609, -917495, 1, 196609, -917494, 1, 196609, -917493, 1, 196609, -917492, 1, 196610, -917482, 0, 196609, -917481, 0, 196609, -917480, 0, 196609, -917479, 0, 196609, -917478, 0, 196609, -917477, 0, 196609, -851963, 1, 196608, -851962, 1, 65538, -851961, 1, 65539, -851960, 1, 196609, -851959, 1, 65536, -851958, 1, 65537, -851957, 1, 196609, -851956, 1, 196610, -851955, 0, 1, -851954, 0, 1, -851953, 0, 1, -851952, 0, 1, -851951, 0, 1, -851950, 0, 1, -851949, 0, 1, -851948, 0, 1, -851947, 0, 1, -851940, 0, 1, -851939, 0, 1, -851938, 0, 1, -851937, 0, 1, -851936, 0, 1, -851935, 0, 1, -851934, 0, 1, -851933, 0, 1, -851932, 0, 2, -786427, 1, 0, -786426, 1, 131074, -786425, 1, 131075, -786424, 1, 131072, -786423, 1, 1, -786422, 1, 1, -786421, 1, 1, -786420, 1, 2, -786419, 0, 65537, -786418, 0, 65537, -786417, 0, 65537, -786416, 0, 65537, -786415, 0, 65537, -786414, 0, 65537, -786413, 0, 65537, -786412, 0, 65537, -786411, 0, 65537, -786404, 0, 65537, -786403, 0, 65537, -786402, 0, 65537, -786401, 0, 65537, -786400, 0, 65537, -786399, 0, 65537, -786398, 0, 65537, -786397, 0, 65537, -786396, 0, 65538, -720891, 0, 65536, -720890, 0, 65537, -720889, 0, 65537, -720888, 0, 65537, -720887, 0, 65537, -720886, 0, 65537, -720885, 0, 65537, -720884, 0, 65537, -720883, 0, 65537, -720882, 0, 65537, -720881, 0, 65537, -720880, 0, 131075, -720879, 0, 131073, -720878, 0, 131073, -720877, 0, 131073, -720876, 0, 131073, -720875, 0, 131073, -720868, 0, 131073, -720867, 0, 131073, -720866, 0, 131073, -720865, 0, 131073, -720864, 0, 131073, -720863, 0, 131073, -720862, 0, 65539, -720861, 0, 65537, -720860, 0, 65538, -655355, 0, 65536, -655354, 0, 65537, -655353, 0, 65537, -655352, 0, 65537, -655351, 0, 65537, -655350, 0, 65537, -655349, 0, 65537, -655348, 0, 65537, -655347, 0, 65537, -655346, 0, 65537, -655345, 0, 65537, -655344, 0, 65538, -655343, 1, 196609, -655342, 1, 196609, -655341, 1, 196609, -655340, 1, 196609, -655339, 1, 196610, -655338, 0, 196609, -655337, 0, 196609, -655336, 0, 196609, -655335, 0, 196609, -655334, 0, 196609, -655333, 0, 196609, -655332, 1, 196608, -655331, 1, 196610, -655327, 1, 196608, -655326, 0, 65536, -655325, 0, 65537, -655324, 0, 65538, -589819, 0, 65536, -589818, 0, 131075, -589817, 0, 131073, -589816, 0, 131073, -589815, 0, 131073, -589814, 0, 131073, -589813, 0, 131073, -589812, 0, 131073, -589811, 0, 131073, -589810, 0, 131073, -589809, 0, 131073, -589808, 0, 131074, -589807, 1, 65536, -589806, 1, 65537, -589805, 1, 196609, -589804, 1, 196609, -589803, 1, 196610, -589796, 1, 196608, -589795, 1, 196610, -589791, 1, 196608, -589790, 0, 65536, -589789, 0, 65537, -589788, 0, 65538, -524283, 0, 65536, -524282, 0, 65538, -524281, 1, 196609, -524280, 1, 196609, -524279, 1, 196609, -524278, 1, 196609, -524277, 1, 196609, -524276, 1, 196609, -524275, 1, 196609, -524274, 1, 196609, -524273, 1, 196609, -524272, 1, 196610, -524271, 1, 65536, -524270, 1, 65537, -524269, 1, 65538, -524268, 1, 65539, -524267, 1, 196610, -524260, 1, 196608, -524259, 1, 196610, -524255, 1, 196608, -524254, 0, 65536, -524253, 0, 65537, -524252, 0, 65538, -458747, 0, 65536, -458746, 0, 65538, -458745, 1, 196609, -458744, 1, 65536, -458743, 1, 65537, -458742, 1, 196609, -458741, 1, 65536, -458740, 1, 65537, -458739, 1, 196609, -458738, 1, 65538, -458737, 1, 65539, -458736, 1, 196610, -458735, 1, 1, -458734, 1, 1, -458733, 1, 131074, -458732, 1, 131075, -458731, 1, 2, -458724, 1, 0, -458723, 1, 2, -458722, 0, 1, -458721, 0, 1, -458720, 0, 1, -458719, 1, 0, -458718, 0, 65536, -458717, 0, 65537, -458716, 0, 65538, -393211, 0, 65536, -393210, 0, 65538, -393209, 1, 1, -393208, 1, 1, -393207, 1, 1, -393206, 1, 1, -393205, 1, 1, -393204, 1, 1, -393203, 1, 1, -393202, 1, 131074, -393201, 1, 131075, -393200, 1, 2, -393199, 0, 65537, -393198, 0, 65537, -393197, 0, 65537, -393196, 0, 65537, -393195, 0, 65538, -393188, 0, 65536, -393187, 0, 65537, -393186, 0, 65537, -393185, 0, 65537, -393184, 0, 65537, -393183, 0, 65537, -393182, 0, 65537, -393181, 0, 65537, -393180, 0, 65538, -327675, 0, 65536, -327674, 0, 65537, -327673, 0, 65537, -327672, 0, 65537, -327671, 0, 65537, -327670, 0, 65537, -327669, 0, 65537, -327668, 0, 65537, -327667, 0, 65537, -327666, 0, 65537, -327665, 0, 65537, -327664, 0, 65537, -327663, 0, 65537, -327662, 0, 65537, -327661, 0, 65537, -327660, 0, 65537, -327659, 0, 65538, -327652, 0, 65536, -327651, 0, 65537, -327650, 0, 65537, -327649, 0, 65537, -327648, 0, 65537, -327647, 0, 65537, -327646, 0, 65537, -327645, 0, 65537, -327644, 0, 65538, -262139, 0, 131072, -262138, 0, 131073, -262137, 0, 131073, -262136, 0, 131073, -262135, 0, 131073, -262134, 0, 131073, -262133, 0, 131073, -262132, 0, 131073, -262131, 0, 131073, -262130, 0, 131073, -262129, 0, 131073, -262128, 0, 131073, -262127, 0, 131073, -262126, 0, 131073, -262125, 0, 131073, -262124, 0, 65539, -262123, 0, 65538, -262116, 0, 131072, -262115, 0, 131073, -262114, 0, 131073, -262113, 0, 131073, -262112, 0, 131073, -262111, 0, 131073, -262110, 0, 131073, -262109, 0, 131073, -262108, 0, 131074, -196603, 1, 196608, -196602, 1, 196609, -196601, 1, 196609, -196600, 1, 196609, -196599, 1, 196609, -196598, 1, 196609, -196597, 1, 196609, -196596, 1, 196609, -196595, 1, 196609, -196594, 1, 196609, -196593, 1, 196609, -196592, 1, 196609, -196591, 1, 196609, -196590, 1, 196609, -196589, 1, 196609, -196588, 0, 65536, -196587, 0, 65538, -131067, 1, 196608, -131066, 1, 196609, -131065, 1, 196609, -131064, 1, 65536, -131063, 1, 65537, -131062, 1, 196609, -131061, 1, 65536, -131060, 1, 65537, -131059, 1, 196609, -131058, 1, 65536, -131057, 1, 65537, -131056, 1, 196609, -131055, 1, 65536, -131054, 1, 65537, -131053, 1, 196609, -131052, 0, 65536, -131051, 0, 65538, -65531, 1, 0, -65530, 1, 1, -65529, 1, 1, -65528, 1, 1, -65527, 1, 1, -65526, 1, 1, -65525, 1, 1, -65524, 1, 1, -65523, 1, 1, -65522, 1, 1, -65521, 1, 1, -65520, 1, 1, -65519, 1, 1, -65518, 1, 1, -65517, 1, 1, -65516, 0, 65536, -65515, 0, 65538, 5, 0, 65536, 6, 0, 65537, 7, 0, 65537, 8, 0, 65537, 9, 0, 65537, 10, 0, 65537, 11, 0, 65537, 12, 0, 65537, 13, 0, 65537, 14, 0, 65537, 15, 0, 65537, 16, 0, 65537, 17, 0, 65537, 18, 0, 65537, 19, 0, 65537, 20, 0, 65536, 21, 0, 65538, 65541, 0, 65536, 65542, 0, 65537, 65543, 0, 65537, 65544, 0, 65537, 65545, 0, 65537, 65546, 0, 65537, 65547, 0, 65537, 65548, 0, 65537, 65549, 0, 65537, 65550, 0, 65537, 65551, 0, 65537, 65552, 0, 65537, 65553, 0, 65537, 65554, 0, 65537, 65555, 0, 65537, 65556, 0, 65537, 65557, 0, 65538, 131077, 0, 65536, 131078, 0, 65537, 131079, 0, 65537, 131080, 0, 65537, 131081, 0, 65537, 131082, 0, 65537, 131083, 0, 65537, 131084, 0, 65537, 131085, 0, 65537, 131086, 0, 65537, 131087, 0, 65537, 131088, 0, 65537, 131089, 0, 65537, 131090, 0, 65537, 131091, 0, 131075, 131092, 0, 131073, 131093, 0, 131074, 196611, 0, 0, 196612, 0, 1, 196613, 0, 196610, 196614, 0, 65537, 196615, 0, 65537, 196616, 0, 65537, 196617, 0, 65537, 196618, 0, 65537, 196619, 0, 65537, 196620, 0, 65537, 196621, 0, 65537, 196622, 0, 65537, 196623, 0, 65537, 196624, 0, 65537, 196625, 0, 65537, 196626, 0, 65537, 196627, 0, 65538, 262147, 0, 65536, 262148, 0, 65537, 262149, 0, 65537, 262150, 0, 65537, 262151, 0, 65537, 262152, 0, 65537, 262153, 0, 65537, 262154, 0, 65537, 262155, 0, 65537, 262156, 0, 65537, 262157, 0, 65537, 262158, 0, 65537, 262159, 0, 65537, 262160, 0, 65537, 262161, 0, 65537, 262162, 0, 65537, 262163, 0, 65538, 262180, 1, 131073, 262181, 1, 131073, 262182, 1, 131073, 262183, 1, 131073, 262184, 1, 131073, 262185, 1, 131073, 262186, 1, 131073, 262187, 1, 131073, 262188, 1, 131073, 262189, 1, 131073, 327683, 0, 65536, 327684, 0, 65537, 327685, 0, 65537, 327686, 0, 65537, 327687, 0, 65537, 327688, 0, 65537, 327689, 0, 65537, 327690, 0, 65537, 327691, 0, 65537, 327692, 0, 65537, 327693, 0, 65537, 327694, 0, 65537, 327695, 0, 65537, 327696, 0, 131075, 327697, 0, 131073, 327698, 0, 131073, 327699, 0, 131074, 327716, 1, 196608, 327717, 1, 65536, 327718, 1, 65537, 327719, 1, 196609, 327720, 1, 196609, 327721, 1, 65538, 327722, 1, 65539, 327723, 1, 65538, 327724, 1, 65539, 327725, 1, 196610, 393219, 0, 131072, 393220, 0, 65539, 393221, 0, 65537, 393222, 0, 65537, 393223, 0, 65537, 393224, 0, 65537, 393225, 0, 65537, 393226, 0, 65537, 393227, 0, 65537, 393228, 0, 65537, 393229, 0, 65537, 393230, 0, 65537, 393231, 0, 65537, 393232, 0, 65538, 393252, 1, 0, 393253, 1, 1, 393254, 1, 131072, 393255, 1, 1, 393256, 1, 1, 393257, 1, 131074, 393258, 1, 131075, 393259, 1, 131074, 393260, 1, 131075, 393261, 1, 2, 458756, 0, 131072, 458757, 0, 131073, 458758, 0, 131073, 458759, 0, 131073, 458760, 0, 131073, 458761, 0, 65539, 458762, 0, 65537, 458763, 0, 65537, 458764, 0, 65537, 458765, 0, 65537, 458766, 0, 65537, 458767, 0, 65537, 458768, 0, 65538, 458788, 0, 65536, 458789, 0, 65537, 458790, 0, 65537, 458791, 0, 65537, 458792, 0, 65537, 458793, 0, 65537, 458794, 0, 65537, 458795, 0, 65537, 458796, 0, 65537, 458797, 0, 65538, 524297, 0, 131072, 524298, 0, 131073, 524299, 0, 131073, 524300, 0, 65539, 524301, 0, 131075, 524302, 0, 131073, 524303, 0, 131073, 524304, 0, 131074, 524324, 0, 65536, 524325, 0, 65537, 524326, 0, 65537, 524327, 0, 65537, 524328, 0, 65537, 524329, 0, 65537, 524330, 0, 65537, 524331, 0, 65537, 524332, 0, 65537, 524333, 0, 65538, 589836, 0, 65536, 589837, 0, 65538, 589860, 0, 131072, 589861, 0, 131073, 589862, 0, 131073, 589863, 0, 131073, 589864, 0, 131073, 589865, 0, 131073, 589866, 0, 131073, 589867, 0, 65539, 589868, 0, 131075, 589869, 0, 131074, 655372, 0, 65536, 655373, 0, 65538, 655403, 0, 65536, 655404, 0, 65538, 720908, 0, 65536, 720909, 0, 65538, 786444, 0, 65536, 786445, 0, 65538, 851980, 0, 65536, 851981, 0, 65538, 917516, 0, 65536, 917517, 0, 65538, 983052, 0, 65536, 983053, 0, 65538, 1048588, 0, 65536, 1048589, 0, 65538, 1114124, 0, 65536, 1114125, 0, 65538, 1179660, 0, 65536, 1179661, 0, 65538, 1245196, 0, 65536, 1245197, 0, 65538, 1310732, 0, 65536, 1310733, 0, 65538 )
+
+[node name="behind" type="Node2D" parent="tiles"]
+z_index = -1
+
+[node name="lightgradient" type="ColorRect" parent="tiles/behind"]
+material = SubResource( 32 )
+margin_left = 64.0
+margin_top = 128.0
+margin_right = 144.0
+margin_bottom = 192.0
+color = Color( 0.00392157, 0, 0.803922, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="fall2" type="ColorRect" parent="tiles/behind/lightgradient"]
+material = SubResource( 32 )
+anchor_left = -0.025
+anchor_right = -0.025
+margin_left = 82.0
+margin_top = 16.0
+margin_right = 210.0
+margin_bottom = 80.0
+color = Color( 0.796078, 0.858824, 0.988235, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="fall3" type="ColorRect" parent="tiles/behind/lightgradient"]
+material = SubResource( 32 )
+margin_left = 208.0
+margin_top = -32.0
+margin_right = 256.0
+margin_bottom = 32.0
+color = Color( 0.796078, 0.858824, 0.988235, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="fall4" type="ColorRect" parent="tiles/behind/lightgradient"]
+material = SubResource( 32 )
+margin_left = -16.0
+margin_top = -16.0
+margin_bottom = 48.0
+color = Color( 0.796078, 0.858824, 0.988235, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="fall5" type="ColorRect" parent="tiles/behind/lightgradient"]
+material = SubResource( 32 )
+margin_left = 256.0
+margin_top = -80.0
+margin_right = 288.0
+margin_bottom = -16.0
+color = Color( 0.796078, 0.858824, 0.988235, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="fall6" type="ColorRect" parent="tiles/behind/lightgradient"]
+material = SubResource( 32 )
+margin_left = 16.0
+margin_top = -176.0
+margin_right = 48.0
+margin_bottom = -112.0
+color = Color( 0.796078, 0.858824, 0.988235, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="fall7" type="ColorRect" parent="tiles/behind/lightgradient"]
+material = SubResource( 32 )
+anchor_left = -0.025
+anchor_right = -0.025
+margin_left = 386.0
+margin_top = -176.0
+margin_right = 529.0
+margin_bottom = -112.0
+color = Color( 0.796078, 0.858824, 0.988235, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="window_light" type="ColorRect" parent="tiles/behind"]
+margin_left = 128.0
+margin_top = -32.0
+margin_right = 304.0
+margin_bottom = -15.0
+color = Color( 0.964706, 0.368627, 0.0431373, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="window_light2" type="ColorRect" parent="tiles/behind/window_light"]
+margin_left = 145.0
+margin_top = -111.0
+margin_right = 175.0
+margin_bottom = -80.0
+color = Color( 0.964706, 0.498039, 0.0431373, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="text" type="RichTextLabel" parent="tiles/behind"]
+material = SubResource( 36 )
+margin_left = 559.0
+margin_top = 53.0
+margin_right = 1356.0
+margin_bottom = 329.0
+rect_scale = Vector2( 0.243203, 0.159445 )
+custom_fonts/normal_font = SubResource( 37 )
+bbcode_enabled = true
+script = SubResource( 38 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="stairs" type="TextureRect" parent="tiles"]
+use_parent_material = true
+margin_left = 321.0
+margin_top = -52.0
+margin_right = 351.0
+margin_bottom = 16.0
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="stairs2" type="TextureRect" parent="tiles/stairs"]
+use_parent_material = true
+margin_left = -240.0
+margin_top = -80.0
+margin_right = -210.0
+margin_bottom = -28.0
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="stairs3" type="TextureRect" parent="tiles/stairs"]
+use_parent_material = true
+margin_left = 224.0
+margin_top = -112.0
+margin_right = 270.0
+margin_bottom = -44.0
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Carpet" type="Polygon2D" parent="tiles"]
+use_parent_material = true
+position = Vector2( 334.5, -92 )
+scale = Vector2( 0.243448, 0.250984 )
+texture = ExtResource( 5 )
+polygon = PoolVector2Array( -119.122, -7.96864, 0, -7.96864, 0, 51.7962, -119.122, 51.7962 )
+uv = PoolVector2Array( 0.185184, 0, 32.084, 0.149925, 31.934, 31.934, 0.149925, 31.7841 )
+
+[node name="Carpet2" type="Polygon2D" parent="tiles/Carpet"]
+modulate = Color( 0.505882, 0.764706, 0.654902, 1 )
+use_parent_material = true
+position = Vector2( 1582.47, 999.068 )
+texture = ExtResource( 5 )
+polygon = PoolVector2Array( -119.122, -7.96864, -13.3499, -18.9255, -9.24219, 40.8393, -119.122, 51.7962 )
+uv = PoolVector2Array( 0.185184, 0, 32.084, 0.149925, 31.934, 31.934, 0.149925, 31.7841 )
+
+[node name="mover" type="Area2D" parent="tiles"]
+use_parent_material = true
+position = Vector2( 352.25, -164 )
+script = SubResource( 39 )
+
+[node name="transport" type="TextureRect" parent="tiles/mover"]
+material = SubResource( 41 )
+margin_left = 0.25
+margin_top = 3.0
+margin_right = 46.25
+margin_bottom = 99.0
+rect_rotation = -90.0
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="collider" type="CollisionShape2D" parent="tiles/mover"]
+position = Vector2( 47.762, -20.011 )
+shape = SubResource( 42 )
+
+[node name="transporter" type="Area2D" parent="tiles"]
+use_parent_material = true
+position = Vector2( 352.25, -164 )
+script = SubResource( 39 )
+
+[node name="transport" type="TextureRect" parent="tiles/transporter"]
+material = SubResource( 41 )
+margin_left = 0.25
+margin_top = 3.0
+margin_right = 46.25
+margin_bottom = 99.0
+rect_rotation = -90.0
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="collider" type="CollisionShape2D" parent="tiles/transporter"]
+position = Vector2( 47.762, -20.011 )
+shape = SubResource( 42 )
+
+[node name="roof" type="Node2D" parent="tiles"]
+use_parent_material = true
+scale = Vector2( 0.25, 0.25 )
+
+[node name="back" type="Polygon2D" parent="tiles/roof"]
+modulate = Color( 0.329412, 0.0431373, 0.34902, 1 )
+use_parent_material = true
+position = Vector2( 324, -877 )
+scale = Vector2( 4.10286, 4.41026 )
+texture = ExtResource( 4 )
+polygon = PoolVector2Array( -5.84958, -1.81395, 13.649, -38.093, 109.192, -38.093, 130, -2 )
+uv = PoolVector2Array( 0, 31.9375, -0.0951462, 0.190296, 32.0968, 0.161285, 32.0296, 31.8182 )
+
+[node name="color" type="Polygon2D" parent="tiles/roof"]
+use_parent_material = true
+position = Vector2( 326, -885 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 4 )
+polygon = PoolVector2Array( -4, -2, 14.5, -38.75, 110.5, -38.75, 130, -2 )
+uv = PoolVector2Array( 0, 31.9375, -0.0951462, 0.190296, 32.0968, 0.161285, 32.0296, 31.8182 )
+
+[node name="uuhh_sun_maybe" type="Node2D" parent="tiles"]
+position = Vector2( 492, -242 )
+z_index = -1
+
+[node name="dialog" type="ColorRect" parent="tiles/uuhh_sun_maybe"]
+margin_left = -115.0
+margin_top = -34.0
+margin_right = 145.0
+margin_bottom = 44.0
+rect_scale = Vector2( 0.25, 0.25 )
+rect_pivot_offset = Vector2( 128, 14 )
+color = Color( 0.176471, 0, 0.298039, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="dialog2" type="ColorRect" parent="tiles/uuhh_sun_maybe/dialog"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 256.0
+margin_bottom = 74.0
+rect_pivot_offset = Vector2( 128, 14 )
+color = Color( 0.964706, 0.54902, 0.219608, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="text" type="RichTextLabel" parent="tiles/uuhh_sun_maybe/dialog/dialog2"]
+margin_right = 400.0
+margin_bottom = 129.0
+rect_scale = Vector2( 0.631624, 0.544723 )
+custom_fonts/normal_font = SubResource( 43 )
+custom_colors/default_color = Color( 0.266667, 0, 0.403922, 1 )
+bbcode_enabled = true
+bbcode_text = "[center] dude wtf, turn that on.
+dont be an asshole.
+I am the fricking moon, dude!"
+tab_size = 3
+text = " dude wtf, turn that on.
+dont be an asshole.
+I am the fricking moon, dude!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="weird" type="ColorRect" parent="tiles/uuhh_sun_maybe"]
+margin_right = 23.9998
+margin_bottom = 24.0
+rect_pivot_offset = Vector2( 12, 12 )
+script = SubResource( 44 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="tiles/uuhh_sun_maybe/weird"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 22.0
+margin_bottom = 22.0
+texture = ExtResource( 10 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="brokenTV" type="ColorRect" parent="tiles"]
+material = SubResource( 46 )
+margin_left = 617.0
+margin_top = 100.0
+margin_right = 631.0
+margin_bottom = 110.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="weirdhouse" type="TileMap" parent="tiles"]
+use_parent_material = true
+tile_set = SubResource( 57 )
+cell_size = Vector2( 16, 16 )
+cell_y_sort = true
+format = 1
+tile_data = PoolIntArray( 327720, 0, 3, 393254, 0, 65536, 393255, 0, 65537, 458790, 0, 131072, 458791, 0, 131073 )
+
+[node name="indoor_audio" type="Area2D" parent="tiles/weirdhouse"]
+position = Vector2( 654, 128.5 )
+audio_bus_override = true
+audio_bus_name = "indoor"
+
+[node name="collider" type="CollisionShape2D" parent="tiles/weirdhouse/indoor_audio"]
+shape = SubResource( 58 )
+
+[node name="doors" type="Node2D" parent="tiles"]
+script = SubResource( 59 )
+
+[node name="001" type="Area2D" parent="tiles/doors"]
+position = Vector2( 704.5, 177 )
+script = SubResource( 60 )
+
+[node name="collider" type="CollisionShape2D" parent="tiles/doors/001"]
+position = Vector2( -0.25, 2.25 )
+shape = SubResource( 61 )
+
+[node name="position" type="Position2D" parent="tiles/doors/001"]
+position = Vector2( -464.25, -253.25 )
+
+[node name="003" type="Area2D" parent="tiles/doors"]
+position = Vector2( 756, 66.25 )
+script = SubResource( 62 )
+
+[node name="collider" type="CollisionShape2D" parent="tiles/doors/003"]
+position = Vector2( -289.75, -127 )
+shape = SubResource( 63 )
+
+[node name="position" type="Position2D" parent="tiles/doors/003"]
+position = Vector2( -629.25, -51.75 )
+
+[node name="transport2" type="TextureRect" parent="tiles/doors/003"]
+material = SubResource( 65 )
+margin_left = -306.0
+margin_top = -119.0
+margin_right = -290.0
+margin_bottom = -86.0
+rect_rotation = -90.0
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="tiles/doors/003"]
+margin_left = -306.0
+margin_top = -131.0
+margin_right = -173.0
+margin_bottom = -84.0
+rect_scale = Vector2( 0.25, 0.25 )
+custom_fonts/normal_font = SubResource( 66 )
+bbcode_enabled = true
+bbcode_text = "[center]TELEPORTER!!!"
+text = "TELEPORTER!!!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="002" type="Area2D" parent="tiles/doors"]
+position = Vector2( 241, -84 )
+script = SubResource( 60 )
+
+[node name="collider" type="CollisionShape2D" parent="tiles/doors/002"]
+position = Vector2( -0.25, 2.25 )
+shape = SubResource( 61 )
+
+[node name="position" type="Position2D" parent="tiles/doors/002"]
+position = Vector2( 462.75, 254.75 )
+
+[node name="world" type="YSort" parent="."]
+material = ExtResource( 18 )
+
+[node name="hyenakid" parent="world" instance=ExtResource( 17 )]
+position = Vector2( 836, 1018 )
+
+[node name="elevatortransport" parent="world" instance=ExtResource( 20 )]
+position = Vector2( 835, 984 )
+
+[node name="sadsign" type="StaticBody2D" parent="world"]
+use_parent_material = true
+position = Vector2( 1122, 44 )
+script = SubResource( 67 )
+
+[node name="collider" type="CollisionShape2D" parent="world/sadsign"]
+position = Vector2( -2.109, -6.163 )
+scale = Vector2( 1.286, 0.626 )
+shape = SubResource( 68 )
+
+[node name="sprite" type="Sprite" parent="world/sadsign"]
+use_parent_material = true
+scale = Vector2( 4, 4 )
+texture = ExtResource( 7 )
+offset = Vector2( 0, -16 )
+
+[node name="detector" type="Area2D" parent="world/sadsign"]
+
+[node name="collider" type="CollisionShape2D" parent="world/sadsign/detector"]
+shape = SubResource( 69 )
+
+[node name="dialog" type="ColorRect" parent="world/sadsign"]
+margin_left = -137.0
+margin_top = -156.0
+margin_right = 127.0
+margin_bottom = -100.0
+rect_pivot_offset = Vector2( 128, 14 )
+color = Color( 0.176471, 0, 0.298039, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="inside" type="ColorRect" parent="world/sadsign/dialog"]
+margin_left = 4.25
+margin_top = 4.25
+margin_right = 260.25
+margin_bottom = 52.25
+rect_pivot_offset = Vector2( 128, 14 )
+color = Color( 0.964706, 0.54902, 0.219608, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="text" type="RichTextLabel" parent="world/sadsign/dialog/inside"]
+margin_right = 405.0
+margin_bottom = 88.0
+rect_scale = Vector2( 0.631624, 0.544723 )
+custom_fonts/normal_font = SubResource( 43 )
+custom_colors/default_color = Color( 0.266667, 0, 0.403922, 1 )
+bbcode_enabled = true
+bbcode_text = "[center]I'm a useless sign :(
+You make my existence better :)"
+tab_size = 3
+text = "I'm a useless sign :(
+You make my existence better :)"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="title" type="ColorRect" parent="world/sadsign"]
+margin_left = -93.0
+margin_top = -186.0
+margin_right = 77.0
+margin_bottom = -160.0
+rect_scale = Vector2( 1.2, 1.2 )
+rect_pivot_offset = Vector2( 85, 14 )
+color = Color( 0.176471, 0, 0.298039, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="inside" type="ColorRect" parent="world/sadsign/title"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 166.0
+margin_bottom = 22.0
+rect_pivot_offset = Vector2( 128, 14 )
+color = Color( 0.00392157, 0.392157, 0.996078, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="text" type="RichTextLabel" parent="world/sadsign/title/inside"]
+margin_top = -2.0
+margin_right = 324.0
+margin_bottom = 42.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/normal_font = SubResource( 43 )
+custom_colors/default_color = Color( 1, 1, 1, 1 )
+bbcode_enabled = true
+bbcode_text = "[center]Useless sign:"
+tab_size = 3
+text = "Useless sign:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="signeyes" type="Sprite" parent="world/sadsign"]
+use_parent_material = true
+position = Vector2( 0, -66 )
+rotation = 3.14159
+scale = Vector2( 4, 4 )
+texture = ExtResource( 8 )
+
+[node name="signface" type="Sprite" parent="world/sadsign"]
+use_parent_material = true
+position = Vector2( 0, -48 )
+scale = Vector2( -4, -4 )
+texture = ExtResource( 13 )
+
+[node name="actualsign" type="StaticBody2D" parent="world"]
+use_parent_material = true
+position = Vector2( 797, -678 )
+script = SubResource( 70 )
+
+[node name="collider" type="CollisionShape2D" parent="world/actualsign"]
+position = Vector2( -2.109, -6.163 )
+scale = Vector2( 1.286, 0.626 )
+shape = SubResource( 71 )
+
+[node name="sprite" type="Sprite" parent="world/actualsign"]
+use_parent_material = true
+scale = Vector2( 4, 4 )
+texture = ExtResource( 7 )
+offset = Vector2( 0, -16 )
+
+[node name="detector" type="Area2D" parent="world/actualsign"]
+
+[node name="collider" type="CollisionShape2D" parent="world/actualsign/detector"]
+shape = SubResource( 72 )
+
+[node name="dialog" type="ColorRect" parent="world/actualsign"]
+margin_left = -137.0
+margin_top = -233.0
+margin_right = 127.0
+margin_bottom = -100.0
+rect_pivot_offset = Vector2( 128, 14 )
+color = Color( 0.176471, 0, 0.298039, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="dialog2" type="ColorRect" parent="world/actualsign/dialog"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 260.0
+margin_bottom = 128.0
+rect_pivot_offset = Vector2( 128, 14 )
+color = Color( 0.964706, 0.54902, 0.219608, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="text" type="RichTextLabel" parent="world/actualsign/dialog/dialog2"]
+margin_top = 4.0
+margin_right = 405.0
+margin_bottom = 223.0
+rect_scale = Vector2( 0.631624, 0.544723 )
+custom_fonts/normal_font = SubResource( 73 )
+custom_colors/default_color = Color( 0.266667, 0, 0.403922, 1 )
+bbcode_enabled = true
+bbcode_text = "[center]WARNING:
+BUGGY TRASH CANS! 
+DO NOT TOUCH AT ANY COSTS!
+(also they are slippery af so-..
+please dont, i beg you...)"
+tab_size = 3
+text = "WARNING:
+BUGGY TRASH CANS! 
+DO NOT TOUCH AT ANY COSTS!
+(also they are slippery af so-..
+please dont, i beg you...)"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="dangersymbol" type="Polygon2D" parent="world/actualsign"]
+use_parent_material = true
+position = Vector2( -7, -58 )
+rotation = -0.277623
+scale = Vector2( 2, 2 )
+texture = ExtResource( 15 )
+polygon = PoolVector2Array( -11.8072, 8.59302, 11.3411, 13.1103, 18.3348, -4.13322, -7.70108, -13.1127 )
+uv = PoolVector2Array( -0.398724, 16.3477, 16.4274, 16.5869, 17.3046, -0.239235, -0.558212, -1.19617 )
+
+[node name="switch" type="Area2D" parent="world"]
+use_parent_material = true
+position = Vector2( 1856, -448 )
+script = SubResource( 74 )
+
+[node name="dangersymbol" type="Polygon2D" parent="world/switch"]
+use_parent_material = true
+position = Vector2( 23, -81 )
+rotation = -0.0168981
+scale = Vector2( 2, 2 )
+texture = ExtResource( 15 )
+polygon = PoolVector2Array( -7.26941, 15.8794, 14.7275, 16.2512, 14.1585, -9.26207, -8.76221, -14.1501 )
+uv = PoolVector2Array( -0.398724, 16.3477, 16.4274, 16.5869, 17.3046, -0.239235, -0.558212, -1.19617 )
+
+[node name="sprite" type="AnimatedSprite" parent="world/switch"]
+use_parent_material = true
+position = Vector2( 32, -16 )
+scale = Vector2( 4, 4 )
+frames = SubResource( 77 )
+animation = "on"
+
+[node name="collider" type="CollisionShape2D" parent="world/switch"]
+position = Vector2( 34, 85 )
+shape = SubResource( 78 )
+
+[node name="trashcan" type="RigidBody2D" parent="world"]
+use_parent_material = true
+position = Vector2( 1352, -711 )
+mode = 2
+gravity_scale = 0.0
+script = SubResource( 79 )
+
+[node name="normal" type="Sprite" parent="world/trashcan"]
+use_parent_material = true
+position = Vector2( 1, -1 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 9 )
+offset = Vector2( 0, -12.841 )
+
+[node name="collider" type="CollisionShape2D" parent="world/trashcan"]
+position = Vector2( 3, -2 )
+rotation = 1.57085
+scale = Vector2( 0.47998, 1 )
+shape = SubResource( 80 )
+
+[node name="trashcan2" type="RigidBody2D" parent="world"]
+use_parent_material = true
+position = Vector2( 1284, -752 )
+mode = 2
+gravity_scale = 0.0
+script = SubResource( 79 )
+
+[node name="normal" type="Sprite" parent="world/trashcan2"]
+use_parent_material = true
+position = Vector2( 1, -1 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 9 )
+offset = Vector2( 0, -12.841 )
+
+[node name="collider" type="CollisionShape2D" parent="world/trashcan2"]
+position = Vector2( 3, -2 )
+rotation = 1.57085
+scale = Vector2( 0.47998, 1 )
+shape = SubResource( 80 )
+
+[node name="trashcan3" type="RigidBody2D" parent="world"]
+use_parent_material = true
+position = Vector2( 1066, -726 )
+mode = 2
+gravity_scale = 0.0
+script = SubResource( 79 )
+
+[node name="normal" type="Sprite" parent="world/trashcan3"]
+use_parent_material = true
+position = Vector2( 1, -1 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 9 )
+offset = Vector2( 0, -12.841 )
+
+[node name="collider" type="CollisionShape2D" parent="world/trashcan3"]
+position = Vector2( 3, -2 )
+rotation = 1.57085
+scale = Vector2( 0.47998, 1 )
+shape = SubResource( 80 )
+
+[node name="trashcan4" type="RigidBody2D" parent="world"]
+use_parent_material = true
+position = Vector2( 1116, -778 )
+mode = 2
+gravity_scale = 0.0
+script = SubResource( 79 )
+
+[node name="normal" type="Sprite" parent="world/trashcan4"]
+use_parent_material = true
+position = Vector2( 1, -1 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 9 )
+offset = Vector2( 0, -12.841 )
+
+[node name="collider" type="CollisionShape2D" parent="world/trashcan4"]
+position = Vector2( 3, -2 )
+rotation = 1.57085
+scale = Vector2( 0.47998, 1 )
+shape = SubResource( 80 )
+
+[node name="Node2D" type="Node2D" parent="world"]
+position = Vector2( 2369, 322 )
+z_index = -2
+
+[node name="windoweffect" type="ColorRect" parent="world/Node2D"]
+material = SubResource( 82 )
+margin_left = 6.0
+margin_top = 7.0
+margin_right = 120.0
+margin_bottom = 58.0
+color = Color( 0.964706, 0.498039, 0.0431373, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="windoweffect2" type="ColorRect" parent="world/Node2D"]
+material = SubResource( 82 )
+margin_left = -1876.0
+margin_top = -792.0
+margin_right = -1503.0
+margin_bottom = -673.0
+color = Color( 0.964706, 0.498039, 0.0431373, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="windoweffect3" type="ColorRect" parent="world/Node2D"]
+material = SubResource( 82 )
+margin_left = -1990.0
+margin_top = -1187.0
+margin_right = -1617.0
+margin_bottom = -1068.0
+color = Color( 0.964706, 0.498039, 0.0431373, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="chairsandshit" type="StaticBody2D" parent="world"]
+use_parent_material = true
+position = Vector2( 2499, 602 )
+
+[node name="Sprite" type="Sprite" parent="world/chairsandshit"]
+use_parent_material = true
+scale = Vector2( 4.875, 5.6875 )
+texture = SubResource( 83 )
+offset = Vector2( 0, -8 )
+flip_h = true
+
+[node name="collider" type="CollisionShape2D" parent="world/chairsandshit"]
+position = Vector2( 2, -20 )
+shape = SubResource( 84 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 85 )
+[connection signal="body_entered" from="tiles/mover" to="tiles/mover" method="_on_mover_body_entered"]
+[connection signal="body_exited" from="tiles/mover" to="tiles/mover" method="_on_mover_body_exited"]
+[connection signal="body_entered" from="tiles/transporter" to="tiles/transporter" method="_on_mover_body_entered"]
+[connection signal="body_exited" from="tiles/transporter" to="tiles/transporter" method="_on_mover_body_exited"]
+[connection signal="body_entered" from="world/sadsign/detector" to="world/sadsign" method="_on_detector_body_entered"]
+[connection signal="body_exited" from="world/sadsign/detector" to="world/sadsign" method="_on_detector_body_exited"]
+[connection signal="body_entered" from="world/actualsign/detector" to="world/actualsign" method="_on_detector_body_entered"]
+[connection signal="body_exited" from="world/actualsign/detector" to="world/actualsign" method="_on_detector_body_exited"]
+[connection signal="body_entered" from="world/switch" to="world/switch" method="_on_switch_body_entered"]

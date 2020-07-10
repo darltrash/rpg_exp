@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Area2D
+onready var player = get_parent().get_node(\"hyenakid\")
+var transportallow = false
+
+func outOfMe(b):
+	transportallow = (b == player)
+
+func intoMe(b):
+	if transportallow:
+		player.mode = \"transport\"
+		
+func _ready():
+	connect(\"body_entered\", self, \"intoMe\")
+	connect(\"body_exited\", self, \"outOfMe\")
+	
+func _process(delta):
+	if player.get_node(\"ontop/ColorRect\").color.a>0.9:
+		get_tree().change_scene(\"res://scenes/elevator.tscn\")
+"
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 60, 49 )
+
+[node name="elevatortransport" type="Area2D"]
+position = Vector2( 321, 792 )
+script = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 38 )
+shape = SubResource( 2 )
