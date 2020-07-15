@@ -42,13 +42,30 @@ var dialogs = {
 	\"abt_wha\": [
 		[\"[shake rate=100 level=6]Im obviously a cat!\\nDont be stupid!\", \"mad\", \"sad\"],
 		[\"[wave]What makes you think\\nI'm not?\", \"pants\", \"happy\", true, 
-			[\"You look like a demon.\", \"d\"]
+			[
+				[\"You look like a demon.\", \"abt_wha_dem\"]
+			]
 		]
 	],
 	
 	\"abt_wha_dem\": [
 		[\"[wave]no...?\", \"pants\", \"happy\", true],
-		[\"[wave]that's-... mega stupid~\", \"default\", \"happy\", true]
+		[\"[wave]that's-... mega stupid~\", \"default\", \"happy\", true],
+		[\"........\", \"default\", \"owo\", true],
+		[\"...who told you that?\", \"default\", \"happy\", true, 
+			[
+				[\"It was obvious\", \"abt_wha_dem_obv\"],
+				[\"A bird told me\", \"abt_wha_dem_bir\"]
+			]
+		]
+	],
+	
+	\"abt_wha_dem_obv\": [
+		[\"no.\",          \"pants\", \"owo\", true],
+		[\"no. shut up.\", \"pants\", \"owo\", true],
+	],
+	\"abt_wha_dem_bir\": [
+		[\"the bird lied.\", \"default\", \"happy\", true]
 	],
 	
 	\"abt_wha_idk\": [
@@ -56,7 +73,7 @@ var dialogs = {
 	]
 }
 
-var answ = \"\"
+var answ = -1
 
 func talk(id_dialog):
 	current_dialog = dialogs[id_dialog]
@@ -66,9 +83,6 @@ func talk(id_dialog):
 
 func ask(questions):
 	$questionbox.ask(questions)
-	
-func answer(ans):
-	answ = ans
 
 func next_line():
 	if current_dialog:
@@ -79,14 +93,22 @@ func next_line():
 				not (current_dialog[current_line][1]==\"pants\" or current_dialog[current_line][1]==\"money\"),
 				current_dialog[current_line].size()>3
 			)
+			
+			var _ques = Array()
 			$dialogbox.say(current_dialog[current_line][0])
+			if current_dialog[current_line].size()>4:
+				for x in current_dialog[current_line][4]:
+					_ques.append(x[0])
+				$questionbox.ask(_ques)
+			
 			current_line += 1
 		else: $HEAD.change(\"default\", \"owo\")
-	
 func _process(delta): 
 	if Input.is_action_just_pressed(\"ui_end\"):
-		ask([\"Are you a demon?\", \"You do look like a cat\", \"Should I trust you?\"])
-	if answ: print(answ)
+		talk(\"abt_wha\")
+	if answ >= 0:
+		talk(current_dialog[current_line-1][4][answ][1])
+		answ = -1
 
 "
 
@@ -248,8 +270,8 @@ func _process(delta):
 			cursor += 1
 			if cursor>questions.size()-1: cursor = 0
 			
-		if Input.is_action_just_pressed(\"ui_accept\"): 
-			get_parent().answer(cursor)
+		if Input.is_action_just_pressed(\"ui_accept\") and percent_visible>0.9: 
+			get_parent().answ = cursor
 			active = true
 	else:
 		modulate.a = lerp(modulate.a, 0, delta*5)
@@ -374,5 +396,5 @@ __meta__ = {
 }
 
 [node name="arrow" type="Polygon2D" parent="questionbox/selection"]
-position = Vector2( 366, -13 )
-polygon = PoolVector2Array( -2, 15, -11, 24, -2, 33 )
+position = Vector2( -11.8014, -13.9438 )
+polygon = PoolVector2Array( -2, 15, 7.97705, 24.3929, -2, 33 )
