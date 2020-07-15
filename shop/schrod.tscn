@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://sprites/boxcat001/eye_normal.png" type="Texture" id=1]
 [ext_resource path="res://sprites/boxcat001/base.png" type="Texture" id=2]
@@ -6,110 +6,21 @@
 [ext_resource path="res://sprites/boxcat001/rAccOon.png" type="Texture" id=4]
 [ext_resource path="res://NanumGothicCoding-Bold.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://sprites/boxcat001/ohno.png" type="Texture" id=6]
+[ext_resource path="res://dialog_system.gd" type="Script" id=7]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
 
-var current_dialog
-var current_line
-var dialogs = {
-	\"welcome\": [
-		[\"Welcome to my special hell!\", \"default\", \"owo\"],
-		[\"[wave]'The most refinate trash for you!'™\", \"money\", \"happy\"]
-	],
-	\"chicken_nuggets\": [
-		[\"Are you going to buy these?\",    \"default\", \"owo\"],
-		[\"i was going to eat them tho\",    \"pants\",   \"owo\"],
-		[\"[wave]they look sooo good.....\", \"default\", \"drool\"],
-		[\"They cost $20000!\",              \"money\",   \"happy\"]
-	],
-	\"buyrefuse\": [
-		[\"[shake rate=100 level=10]wh-WHAT?!\", \"dead\", \"happy\"],
-		[\"[shake rate=100 level=10]yOU DONT WANT TO BUY MY TRASH????????????11!!'???''?''???!11'''!?\", \"dead\", \"drool\"],
-		[\"[wave]okay~\",                    \"default\", \"owo\"]
-	],
-	\"buyaccept\": [
-		[\"KA-CHING!\\nMONEY MONEY MONEY FOR ME!\", \"money\", \"happy\"],
-		[\"[color=#808080][wave](this guy literally bought trash...)\", \"pants\", \"owo\"]
-	],
-	
-	\"abt_you\": [
-		[\"The name is Schrod.\", \"default\", \"owo\"],
-		[\"People always wonder why\\nI wear a box on my head\", \"default\", \"owo\"],
-		[\"They dont even know this box IS my head\", \"dead\", \"happy\"]
-	],
-	
-	\"abt_wha\": [
-		[\"[shake rate=100 level=6]Im obviously a cat!\\nDont be stupid!\", \"mad\", \"sad\"],
-		[\"[wave]What makes you think\\nI'm not?\", \"pants\", \"happy\", true, 
-			[
-				[\"You look like a demon.\", \"abt_wha_dem\"]
-			]
-		]
-	],
-	
-	\"abt_wha_dem\": [
-		[\"[wave]no...?\", \"pants\", \"happy\", true],
-		[\"[wave]that's-... mega stupid~\", \"default\", \"happy\", true],
-		[\"........\", \"default\", \"owo\", true],
-		[\"...who told you that?\", \"default\", \"happy\", true, 
-			[
-				[\"It was obvious\", \"abt_wha_dem_obv\"],
-				[\"A bird told me\", \"abt_wha_dem_bir\"]
-			]
-		]
-	],
-	
-	\"abt_wha_dem_obv\": [
-		[\"no.\",          \"pants\", \"owo\", true],
-		[\"no. shut up.\", \"pants\", \"owo\", true],
-	],
-	\"abt_wha_dem_bir\": [
-		[\"the bird lied.\", \"default\", \"happy\", true]
-	],
-	
-	\"abt_wha_idk\": [
-		[\"[wave]okay...?\", \"pants\", \"happy\", true]
-	]
-}
+func _ready():
+	$dialog_system.load_json_file(\"res://dialog/shop_schrod.tres\")
 
-var answ = -1
+func expression_callback(a, b, c, d): $HEAD.change(a, b, c, d)
 
-func talk(id_dialog):
-	current_dialog = dialogs[id_dialog]
-	current_line = 0
-	next_line()
-	var lastdialog = id_dialog
+func default_expression(): $HEAD.change(\"default\", \"owo\")
 
-func ask(questions):
-	$questionbox.ask(questions)
-
-func next_line():
-	if current_dialog:
-		if current_dialog.size() > current_line:
-			$HEAD.change(
-				current_dialog[current_line][1], 
-				current_dialog[current_line][2], 
-				not (current_dialog[current_line][1]==\"pants\" or current_dialog[current_line][1]==\"money\"),
-				current_dialog[current_line].size()>3
-			)
-			
-			var _ques = Array()
-			$dialogbox.say(current_dialog[current_line][0])
-			if current_dialog[current_line].size()>4:
-				for x in current_dialog[current_line][4]:
-					_ques.append(x[0])
-				$questionbox.ask(_ques)
-			
-			current_line += 1
-		else: $HEAD.change(\"default\", \"owo\")
 func _process(delta): 
 	if Input.is_action_just_pressed(\"ui_end\"):
-		talk(\"abt_wha\")
-	if answ >= 0:
-		talk(current_dialog[current_line-1][4][answ][1])
-		answ = -1
-
+		$dialog_system.talk(\"abt_wha\")
 "
 
 [sub_resource type="GDScript" id=2]
@@ -342,11 +253,15 @@ scale = Vector2( 0.436656, 0.446012 )
 texture = ExtResource( 6 )
 flip_h = true
 
-[node name="dialogbox" type="RichTextLabel" parent="."]
-margin_left = 510.0
-margin_top = 260.0
-margin_right = 864.0
-margin_bottom = 308.0
+[node name="dialog_system" type="Node2D" parent="."]
+position = Vector2( 499.199, 310.056 )
+script = ExtResource( 7 )
+
+[node name="dialogbox" type="RichTextLabel" parent="dialog_system"]
+margin_left = 10.8014
+margin_top = -50.0562
+margin_right = 364.801
+margin_bottom = -2.05615
 rect_clip_content = false
 custom_styles/normal = SubResource( 3 )
 custom_fonts/normal_font = SubResource( 4 )
@@ -362,16 +277,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="arrow" type="Polygon2D" parent="dialogbox"]
+[node name="arrow" type="Polygon2D" parent="dialog_system/dialogbox"]
 position = Vector2( 0, -1 )
 antialiased = true
 polygon = PoolVector2Array( 1, 11, -13, 24, 1, 36 )
 
-[node name="questionbox" type="RichTextLabel" parent="."]
-margin_left = 510.0
-margin_top = 312.0
-margin_right = 864.0
-margin_bottom = 359.0
+[node name="questionbox" type="RichTextLabel" parent="dialog_system"]
+margin_left = 10.8014
+margin_top = 1.94385
+margin_right = 364.801
+margin_bottom = 48.9438
 rect_clip_content = false
 custom_styles/normal = SubResource( 3 )
 custom_fonts/normal_font = SubResource( 4 )
@@ -384,7 +299,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="selection" type="Panel" parent="questionbox"]
+[node name="selection" type="Panel" parent="dialog_system/questionbox"]
 material = SubResource( 7 )
 margin_left = 1.0
 margin_top = 12.0
@@ -395,6 +310,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="arrow" type="Polygon2D" parent="questionbox/selection"]
+[node name="arrow" type="Polygon2D" parent="dialog_system/questionbox/selection"]
 position = Vector2( -11.8014, -13.9438 )
 polygon = PoolVector2Array( -2, 15, 7.97705, 24.3929, -2, 33 )

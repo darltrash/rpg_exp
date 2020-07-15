@@ -1,0 +1,60 @@
+{
+	"welcome": [
+		["Welcome to my special hell!", "default", "owo"],
+		["[wave]'The most refinate trash for you!'™", "money", "happy"]
+	],
+	"chicken_nuggets": [
+		["Are you going to buy these?",    "default", "owo"],
+		["i was going to eat them tho",    "pants",   "owo"],
+		["[wave]they look sooo good.....", "default", "drool"],
+		["They cost $20000!",              "money",   "happy"]
+	],
+	"buyrefuse": [
+		["[shake rate=100 level=10]wh-WHAT?!", "dead", "happy"],
+		["[shake rate=100 level=10]yOU DONT WANT TO BUY MY TRASH????????????11!!'???''?''???!11'''!?", "dead", "drool"],
+		["[wave]okay~",                    "default", "owo"]
+	],
+	"buyaccept": [
+		["KA-CHING!\nMONEY MONEY MONEY FOR ME!", "money", "happy"],
+		["[color=#808080][wave](this guy literally bought trash...)", "pants", "owo"]
+	],
+	
+	"abt_you": [
+		["The name is Schrod.", "default", "owo"],
+		["People always wonder why\nI wear a box on my head", "default", "owo"],
+		["They dont even know this box IS my head", "dead", "happy"]
+	],
+	
+	"abt_wha": [
+		["[shake rate=100 level=6]Im obviously a cat!\nDont be stupid!", "mad", "sad"],
+		["[wave]What makes you think\nI'm not?", "pants", "happy", true, 
+			[
+				["You look like a demon.", "abt_wha_dem"]
+			]
+		]
+	],
+	
+	"abt_wha_dem": [
+		["[wave]no...?", "pants", "happy", true],
+		["[wave]that's-... mega stupid~", "default", "happy", true],
+		["........", "default", "owo", true],
+		["...who told you that?", "default", "happy", true, 
+			[
+				["It was obvious", "abt_wha_dem_obv"],
+				["A bird told me", "abt_wha_dem_bir"]
+			]
+		]
+	],
+	
+	"abt_wha_dem_obv": [
+		["no.",          "pants", "owo", true],
+		["no. shut up.", "pants", "owo", true]
+	],
+	"abt_wha_dem_bir": [
+		["the bird lied.", "default", "happy", true]
+	],
+	
+	"abt_wha_idk": [
+		["[wave]okay...?", "pants", "happy", true]
+	]
+}
